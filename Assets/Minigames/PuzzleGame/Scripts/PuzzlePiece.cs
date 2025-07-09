@@ -102,20 +102,6 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         StartCoroutine(PlayGlowEffect());
     }
 
-    //private IEnumerator PlayGlowEffect()
-    //{
-
-
-    //    outline.effectColor = new Color(1f, 1f, 0.5f, 0.7f);
-    //    outline.effectDistance = new Vector2(5, -5);
-
-    //    float glowTime = 0.3f;
-    //    yield return new WaitForSeconds(glowTime);
-
-    //    Destroy(outline);
-    //    isSnapping = false;
-    //}
-
     private IEnumerator PlayGlowEffect()
     {
         if (glowEffect == null)
@@ -137,7 +123,7 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             float alpha = Mathf.Lerp(startAlpha, endAlpha, t);
             float distance = Mathf.Lerp(startDistance, endDistance, t);
 
-            glowEffect.effectColor = new Color(1f, 1f, 0f, alpha); // Gelb mit fade
+            glowEffect.effectColor = new Color(1f, 1f, 0f, alpha);
             glowEffect.effectDistance = new Vector2(distance, distance);
 
             yield return null;
