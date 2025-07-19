@@ -1,22 +1,26 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
 {
+    public GameObject answerGroupMultiple;
+    public GameObject answerGroupMatching;
+    public GameObject answerGroupTrueFalse;
+
     [Header("UI References")]
     public TextMeshProUGUI questionText;
-    public Button[] answerButtons;
     public Button nextButton;
 
     [Header("Questions")]
-    public Question[] questions;
+    public List<QuestionBase> questions;
 
     private int currentQuestionIndex = 0;
-    private bool answered = false;
 
     void Start()
     {
+        questions = QuestionHelper.InitQuestions();
         nextButton.interactable = false;
         LoadQuestion();
     }
@@ -32,7 +36,7 @@ public class QuizManager : MonoBehaviour
 
         currentQuestionIndex++;
 
-        if (currentQuestionIndex >= questions.Length)
+        if (currentQuestionIndex >= questions.Count)
         {
             Debug.Log("Quiz done!");
             return;
@@ -43,61 +47,39 @@ public class QuizManager : MonoBehaviour
 
     private void LoadQuestion()
     {
-        answered = false;
         nextButton.interactable = false;
 
-        Question q = questions[currentQuestionIndex];
+        answerGroupMultiple.SetActive(false);
+        answerGroupMatching.SetActive(false);
+        answerGroupTrueFalse.SetActive(false);
+
+        var q = questions[currentQuestionIndex];
         questionText.text = q.questionText;
 
-        for (int i = 0; i < answerButtons.Length; i++)
+        switch (q.questionType)
         {
-            int index = i; // local var for listener
+            case QuestionType.Multiple:
+                answerGroupMultiple.SetActive(true);
+                var mq = (MultipleQuestion)q;
+                GetComponent<MultipleHandler>().Setup(mq);
+                break;
 
-            answerButtons[i].interactable = true;
+            case QuestionType.Matching:
+                answerGroupMatching.SetActive(true);
+                var matchQ = (MatchingQuestion)q;
+                GetComponent<MatchingHandler>().Setup(matchQ);
+                break;
 
-            ColorBlock cb = answerButtons[i].colors;
-            cb.normalColor = Color.white;
-            cb.highlightedColor = new Color(0.8f, 0.8f, 0.8f);
-            cb.pressedColor = Color.gray;
-            cb.selectedColor = Color.white;
-            cb.disabledColor = new Color(0.7f, 0.7f, 0.7f);
-            answerButtons[i].colors = cb;
-
-            answerButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = q.answers[i];
-            answerButtons[i].onClick.RemoveAllListeners();
-            answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
+            case QuestionType.TrueFalse:
+                answerGroupTrueFalse.SetActive(true);
+                var tfq = (TrueFalseQuestion)q;
+                GetComponent<TrueFalseHandler>().Setup(tfq);
+                break;
         }
     }
 
-    private void OnAnswerSelected(int selectedIndex)
+    public void EnableNextButton()
     {
-        Debug.Log("Answer selected: " + selectedIndex);
-
-        if (answered)
-            return;
-
-        answered = true;
-
-        Question q = questions[currentQuestionIndex];
-
-        for (int i = 0; i < answerButtons.Length; i++)
-        {
-            answerButtons[i].interactable = false;
-
-            ColorBlock cb = answerButtons[i].colors;
-
-            if (i == q.correctAnswerIndex)
-                cb.disabledColor = Color.green;
-            else if (i == selectedIndex)
-                cb.disabledColor = Color.red;
-
-            //cb.normalColor = (i == q.correctAnswerIndex)
-            //    ? Color.green
-            //    : (i == selectedIndex ? Color.red : cb.normalColor);
-
-            answerButtons[i].colors = cb;
-        }
-
         nextButton.interactable = true;
     }
 }
