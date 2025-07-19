@@ -100,22 +100,24 @@ public static class QuestionHelper
             {
                 questionType = QuestionType.TrueFalse,
                 image = _trueFalse1,
-                questionText = "Die Erde ist eine Scheibe.",
-                correctAnswer = false
+                questionText = "Hierbei handelt es sich um einen Stammbaum.",
+                correctAnswer = true
             },
             new TrueFalseQuestion
             {
                 questionType = QuestionType.TrueFalse,
                 image = _trueFalse2,
-                questionText = "Wasser kocht bei 100°C.",
-                correctAnswer = true
+                questionText = "Dieses Werk wurde in der Abtei von Cluny angefertigt in Bourgogne-Franche-Comté.",
+                infoText = "Dieses Werk wurde im Kloster San Salvador de Tábar in Nordspanien angefertigt.",
+                correctAnswer = false
             },
             new TrueFalseQuestion
             {
                 questionType = QuestionType.TrueFalse,
                 image = _trueFalse3,
-                questionText = "Tauben sind Spione vom Staat.",
-                correctAnswer = true
+                questionText = "Das allgemeine Thema dieses Werks bezieht sich auf die Mathematik.",
+                infoText = "Das allgemeine Thema dieses Werks bezieht sich auf Kirchenrecht",
+                correctAnswer = false
             }
         };
     }

@@ -25,11 +25,6 @@ public class QuizManager : MonoBehaviour
         LoadQuestion();
     }
 
-    void Update()
-    {
-
-    }
-
     public void OnNextQuestion()
     {
         Debug.Log("Next");
