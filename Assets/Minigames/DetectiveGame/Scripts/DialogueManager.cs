@@ -70,7 +70,14 @@ public class DialogueManager : MonoBehaviour
 
     public void OnNextPressed()
     {
-        currentLineIndex++;
+        var line = currentDialogue.lines[currentLineIndex];
+
+        int? indexJump = line.nextLineIndex;
+        if (indexJump != null)
+            currentLineIndex = (int)indexJump;
+        else
+            currentLineIndex++;
+
         ShowCurrentLine();
     }
 

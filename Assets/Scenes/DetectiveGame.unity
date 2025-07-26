@@ -763,8 +763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 28}
-  m_SizeDelta: {x: 1600, y: 200}
+  m_AnchoredPosition: {x: 0, y: 0.075867}
+  m_SizeDelta: {x: 1600, y: 255.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &698862082
 MonoBehaviour:
@@ -779,16 +779,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: 16
+    m_Right: 16
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 16
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -841,6 +841,7 @@ MonoBehaviour:
   characterContainer: {fileID: 750601370}
   rooms:
   - {fileID: 11400000, guid: 00279c61fd10a5d479e0f112eafcb1ce, type: 2}
+  - {fileID: 11400000, guid: 4c364851162a881418bd42d807bd0013, type: 2}
   hotspotPrefab: {fileID: 4695497272451201229, guid: 87777a5608cde9440934e2899265ca0d, type: 3}
   characterPrefab: {fileID: 7940303924261128624, guid: e00ae94a0e99f374c98f1d810358727f, type: 3}
 --- !u!1 &750601369
@@ -1150,7 +1151,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 58192419b9be50b4086b6d00ea741fe9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dafcd00ef4f600c40b9dba8df9b09c15, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1335,7 +1336,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1575647094}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1572636497}
+        m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+        m_MethodName: OnNextPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1575647094
 MonoBehaviour:
   m_ObjectHideFlags: 0

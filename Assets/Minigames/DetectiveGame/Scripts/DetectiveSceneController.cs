@@ -40,7 +40,11 @@ public class DetectiveSceneController : MonoBehaviour
     private void CreateHotspot(HotspotData hotspotData)
     {
         GameObject hs = Instantiate(hotspotPrefab, hotspotContainer);
-        hs.GetComponent<RectTransform>().anchoredPosition = hotspotData.position;
+
+        RectTransform rt = hs.GetComponent<RectTransform>();
+        rt.anchoredPosition = hotspotData.position;
+
+        rt.localEulerAngles = new Vector3(0f, 0f, hotspotData.rotation);
 
         var button = hs.GetComponent<Button>();
         var image = hs.GetComponent<Image>();
@@ -75,25 +79,10 @@ public class DetectiveSceneController : MonoBehaviour
         rt.anchoredPosition = ch.position;
         rt.sizeDelta = ch.size;
 
-        //Image image = charObj.GetComponent<Image>();
-        //image.sprite = ch.sprite;
-        //image.preserveAspect = true;
-
         Image image = charObj.GetComponent<Image>();
         image.sprite = ch.sprite;
         image.preserveAspect = true;
         image.type = Image.Type.Simple;
-
-        //Transform imageTransform = charObj.transform.Find("CharacterImage");
-        //if (imageTransform != null)
-        //{
-        //    Image image = imageTransform.GetComponent<Image>();
-        //    image.sprite = ch.sprite;
-        //    image.preserveAspect = true;
-
-        //    RectTransform imgRt = imageTransform.GetComponent<RectTransform>();
-        //    imgRt.sizeDelta = ch.size;
-        //}
 
         Button button = charObj.GetComponent<Button>();
         if (ch.dialogueFile != null)

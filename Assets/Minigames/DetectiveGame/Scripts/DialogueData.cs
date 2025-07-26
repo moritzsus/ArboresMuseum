@@ -10,6 +10,7 @@ public class DialogueLine
     public string speaker;
     public string text;
     public DialogueChoice[] choices;
+    public int? nextLineIndex;
 }
 
 [System.Serializable]
