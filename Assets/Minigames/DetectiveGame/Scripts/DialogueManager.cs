@@ -71,10 +71,9 @@ public class DialogueManager : MonoBehaviour
     public void OnNextPressed()
     {
         var line = currentDialogue.lines[currentLineIndex];
-
-        int? indexJump = line.nextLineIndex;
-        if (indexJump != null)
-            currentLineIndex = (int)indexJump;
+        int nextLine = line.nextLineIndex;
+        if (nextLine != -1)
+            currentLineIndex = nextLine;
         else
             currentLineIndex++;
 

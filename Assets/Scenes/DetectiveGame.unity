@@ -842,6 +842,9 @@ MonoBehaviour:
   rooms:
   - {fileID: 11400000, guid: 00279c61fd10a5d479e0f112eafcb1ce, type: 2}
   - {fileID: 11400000, guid: 4c364851162a881418bd42d807bd0013, type: 2}
+  - {fileID: 11400000, guid: ab7d0bdb243bcd3449b9312f788536db, type: 2}
+  - {fileID: 11400000, guid: 5cad6d58b4c2a8e4b86d6881ea4642ee, type: 2}
+  - {fileID: 11400000, guid: 18d3081ac11444045a32e10d6adf4a8b, type: 2}
   hotspotPrefab: {fileID: 4695497272451201229, guid: 87777a5608cde9440934e2899265ca0d, type: 3}
   characterPrefab: {fileID: 7940303924261128624, guid: e00ae94a0e99f374c98f1d810358727f, type: 3}
 --- !u!1 &750601369
@@ -1151,7 +1154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dafcd00ef4f600c40b9dba8df9b09c15, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fa9be586f8e055448de645559e916a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

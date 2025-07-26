@@ -10,7 +10,7 @@ public class DialogueLine
     public string speaker;
     public string text;
     public DialogueChoice[] choices;
-    public int? nextLineIndex;
+    public int nextLineIndex = -1; // -1 => go to next index
 }
 
 [System.Serializable]

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8699c51ad25f28242a7b20f3d2447eaa, type: 3}
+  m_Name: Station
+  m_EditorClassIdentifier: 
+  backgroundImage: {fileID: 21300000, guid: 0fa9be586f8e055448de645559e916a4, type: 3}
+  hotspots:
+  - name: Centre
+    position: {x: -900, y: -240}
+    rotation: 180
+    icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
+    type: 2
+    linkedRoomName: Centre
+    dialogFile: {fileID: 0}
+  - name: Park
+    position: {x: 900, y: -240}
+    rotation: 0
+    icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
+    type: 2
+    linkedRoomName: Park
+    dialogFile: {fileID: 0}
+  characters:
+  - name: Grandma
+    position: {x: -252, y: -96}
+    size: {x: 158, y: 334}
+    sprite: {fileID: 21300000, guid: 7e90c4f90cd526f48a19398a969ca109, type: 3}
+    dialogueFile: {fileID: 4900000, guid: 1766e26dee837c24e990defecd017719, type: 3}

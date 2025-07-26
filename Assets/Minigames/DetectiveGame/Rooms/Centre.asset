@@ -10,34 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8699c51ad25f28242a7b20f3d2447eaa, type: 3}
-  m_Name: MuseumOutside
+  m_Name: Centre
   m_EditorClassIdentifier: 
-  backgroundImage: {fileID: 21300000, guid: dafcd00ef4f600c40b9dba8df9b09c15, type: 3}
+  backgroundImage: {fileID: 21300000, guid: fc43ac3ec4668764abd663b17821906a, type: 3}
   hotspots:
-  - name: Inside
-    position: {x: -48, y: -200}
+  - name: Station
+    position: {x: -150, y: -150}
     rotation: 90
     icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
     type: 2
-    linkedRoomName: MuseumStart
+    linkedRoomName: Station
     dialogFile: {fileID: 0}
-  - name: Police
-    position: {x: -900, y: -420}
+  - name: Park
+    position: {x: 150, y: -260}
+    rotation: 45
+    icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
+    type: 2
+    linkedRoomName: Park
+    dialogFile: {fileID: 0}
+  - name: MuseumOutside
+    position: {x: -900, y: -470}
     rotation: 180
     icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
     type: 2
-    linkedRoomName: Police
+    linkedRoomName: MuseumOutside
     dialogFile: {fileID: 0}
-  - name: Centre
-    position: {x: 900, y: -420}
-    rotation: 0
-    icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
-    type: 2
-    linkedRoomName: Centre
-    dialogFile: {fileID: 0}
-  characters:
-  - name: Grandpa
-    position: {x: -400, y: -210}
-    size: {x: 107, y: 285}
-    sprite: {fileID: 21300000, guid: 2761054ba06483740b1970d43a56f1a4, type: 3}
-    dialogueFile: {fileID: 4900000, guid: acbf77f60bfb21a439fb4d752a4844c3, type: 3}
+  characters: []
