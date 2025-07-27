@@ -17,17 +17,39 @@ MonoBehaviour:
   - name: Centre
     position: {x: 420, y: -420}
     rotation: 45
-    icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
+    icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: Centre
     dialogFile: {fileID: 0}
+    inspectImage: {fileID: 0}
+    inspectText: 
+    removeAfterFound: 0
   - name: Station
     position: {x: -350, y: -110}
     rotation: 45
-    icon: {fileID: 21300000, guid: 70e5cbc6bcdf35e46bc70a653bbafaf8, type: 3}
+    icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: Station
     dialogFile: {fileID: 0}
+    inspectImage: {fileID: 0}
+    inspectText: 
+    removeAfterFound: 0
+  - name: HiddenImage
+    position: {x: 212, y: 65}
+    rotation: 0
+    icon: {fileID: 21300000, guid: 321b0c56ebb5a3e4c9c947f42abf7130, type: 3}
+    iconWidth: 88
+    iconHeight: 84
+    type: 1
+    linkedRoomName: 
+    dialogFile: {fileID: 0}
+    inspectImage: {fileID: 21300000, guid: 321b0c56ebb5a3e4c9c947f42abf7130, type: 3}
+    inspectText: Das gestohlene Bild! Und ein einzelner Handschuh...
+    removeAfterFound: 1
   characters:
   - name: Woman
     position: {x: -600, y: -150}

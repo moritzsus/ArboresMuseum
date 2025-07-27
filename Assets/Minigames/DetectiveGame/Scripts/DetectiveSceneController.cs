@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,16 +9,28 @@ public class DetectiveSceneController : MonoBehaviour
     public Image backgroundImage;
     public Transform hotspotContainer;
     public Transform characterContainer;
+
+    public GameObject inspectOverlay;
+    public Image inspectImage;
+    public TextMeshProUGUI inspectText;
+    public Button closeInspectButton;
+
     public RoomData[] rooms;
 
     [SerializeField]
     private GameObject hotspotPrefab;
     [SerializeField]
     private GameObject characterPrefab;
+
+    private GameObject hotspotToRemoveAfterInspect;
     private Dictionary<string, RoomData> roomMap;
 
     void Start()
     {
+        //closeInspectButton.onClick.AddListener(() => inspectOverlay.SetActive(false));
+        closeInspectButton.onClick.AddListener(CloseInspect);
+        inspectOverlay.SetActive(false);
+
         roomMap = rooms.ToDictionary(r => r.name, r => r);
         LoadRoom("MuseumStart");
     }
@@ -45,6 +58,7 @@ public class DetectiveSceneController : MonoBehaviour
         rt.anchoredPosition = hotspotData.position;
 
         rt.localEulerAngles = new Vector3(0f, 0f, hotspotData.rotation);
+        rt.sizeDelta = new Vector2(hotspotData.iconWidth, hotspotData.iconHeight);
 
         var button = hs.GetComponent<Button>();
         var image = hs.GetComponent<Image>();
@@ -63,7 +77,7 @@ public class DetectiveSceneController : MonoBehaviour
                 });
                 break;
             case HotspotType.Inspect:
-                button.onClick.AddListener(() => Inspect(hotspotData.name));
+                button.onClick.AddListener(() => Inspect(hotspotData, hs));
                 break;
             case HotspotType.Exit:
                 button.onClick.AddListener(() => LoadRoom(hotspotData.linkedRoomName));
@@ -112,8 +126,27 @@ public class DetectiveSceneController : MonoBehaviour
             Destroy(child.gameObject);
     }
 
-    private void Inspect(string hotspotName)
+    private void Inspect(HotspotData hotspot, GameObject sourceObj)
     {
+        inspectOverlay.SetActive(true);
+        inspectImage.sprite = hotspot.inspectImage;
+        inspectText.text = hotspot.inspectText;
 
+        if (hotspot.removeAfterFound)
+        {
+            hotspotToRemoveAfterInspect = sourceObj;
+        }
     }
+
+    private void CloseInspect()
+    {
+        inspectOverlay.SetActive(false);
+
+        if (hotspotToRemoveAfterInspect != null)
+        {
+            Destroy(hotspotToRemoveAfterInspect);
+            hotspotToRemoveAfterInspect = null;
+        }
+    }
+
 }
