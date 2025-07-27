@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class DetectiveSceneController : MonoBehaviour
 {
+    public static DetectiveSceneController Instance { get; private set; }
+
     public Image backgroundImage;
     public Transform hotspotContainer;
     public Transform characterContainer;
@@ -25,14 +27,28 @@ public class DetectiveSceneController : MonoBehaviour
     private GameObject hotspotToRemoveAfterInspect;
     private Dictionary<string, RoomData> roomMap;
 
+    private int cluesFound = 0;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     void Start()
     {
-        //closeInspectButton.onClick.AddListener(() => inspectOverlay.SetActive(false));
         closeInspectButton.onClick.AddListener(CloseInspect);
         inspectOverlay.SetActive(false);
 
         roomMap = rooms.ToDictionary(r => r.name, r => r);
         LoadRoom("MuseumStart");
+    }
+
+    public int GetCluesCount()
+    {
+        return cluesFound;
     }
 
     public void LoadRoom(string roomName)
@@ -129,6 +145,9 @@ public class DetectiveSceneController : MonoBehaviour
     private void Inspect(HotspotData hotspot, GameObject sourceObj)
     {
         inspectOverlay.SetActive(true);
+
+        cluesFound++;
+
         inspectImage.sprite = hotspot.inspectImage;
         inspectText.text = hotspot.inspectText;
 
@@ -148,5 +167,4 @@ public class DetectiveSceneController : MonoBehaviour
             hotspotToRemoveAfterInspect = null;
         }
     }
-
 }

@@ -18,16 +18,44 @@ MonoBehaviour:
     position: {x: -900, y: -240}
     rotation: 180
     icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: Centre
     dialogFile: {fileID: 0}
+    inspectImage: {fileID: 0}
+    inspectWidth: 420
+    inspectHeight: 420
+    inspectText: 
+    removeAfterFound: 0
   - name: Park
     position: {x: 900, y: -240}
     rotation: 0
     icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: Park
     dialogFile: {fileID: 0}
+    inspectImage: {fileID: 0}
+    inspectWidth: 420
+    inspectHeight: 420
+    inspectText: 
+    removeAfterFound: 0
+  - name: Schedule
+    position: {x: 316, y: -36}
+    rotation: 0
+    icon: {fileID: 21300000, guid: e2ebababde5cd354bb7f72a83a3ac84c, type: 3}
+    iconWidth: 40
+    iconHeight: 50
+    type: 1
+    linkedRoomName: Park
+    dialogFile: {fileID: 0}
+    inspectImage: {fileID: 21300000, guid: 025afab944fe1254a8e08b4979d08b43, type: 3}
+    inspectWidth: 520
+    inspectHeight: 420
+    inspectText: "Ein Fahrplan der alle heutigen Z\xFCge zeigt. Ob das weiterhilft..."
+    removeAfterFound: 0
   characters:
   - name: Grandma
     position: {x: -252, y: -96}

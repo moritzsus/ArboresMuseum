@@ -47,7 +47,7 @@ MonoBehaviour:
     type: 1
     linkedRoomName: 
     dialogFile: {fileID: 0}
-    inspectImage: {fileID: 21300000, guid: 321b0c56ebb5a3e4c9c947f42abf7130, type: 3}
+    inspectImage: {fileID: 21300000, guid: a8b1550113b459e428b4ea241de7b975, type: 3}
     inspectText: Das gestohlene Bild! Und ein einzelner Handschuh...
     removeAfterFound: 1
   characters:
