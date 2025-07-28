@@ -32,6 +32,8 @@ public class DialogueManager : MonoBehaviour
         if (dialogueContainer != null)
             dialogueContainer.SetActive(true);
 
+        DetectiveSceneController.Instance.SetInteractionEnabled(false);
+
         currentDialogue = data;
         currentLineIndex = 0;
         ShowCurrentLine();
@@ -101,5 +103,7 @@ public class DialogueManager : MonoBehaviour
 
         if (dialogueContainer != null)
             dialogueContainer.SetActive(false);
+
+        DetectiveSceneController.Instance.SetInteractionEnabled(true);
     }
 }

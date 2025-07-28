@@ -18,19 +18,43 @@ MonoBehaviour:
     position: {x: 900, y: -420}
     rotation: 0
     icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: MuseumOutside
     dialogFile: {fileID: 0}
+    inspectImage: {fileID: 0}
+    inspectText: 
+    removeAfterFound: 0
   - name: PoliceRoom
     position: {x: -250, y: -300}
     rotation: 65
     icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: PoliceRoom
     dialogFile: {fileID: 0}
+    inspectImage: {fileID: 0}
+    inspectText: 
+    removeAfterFound: 0
+  - name: Marker
+    position: {x: -50, y: -46}
+    rotation: 0
+    icon: {fileID: 21300000, guid: 885d1bb0526bfc64889d2cecbaf50edd, type: 3}
+    iconWidth: 40
+    iconHeight: 40
+    type: 3
+    linkedRoomName: PoliceRoom
+    dialogFile: {fileID: 0}
+    inspectImage: {fileID: 0}
+    inspectText: 
+    removeAfterFound: 0
   characters:
-  - name: PoliceGuy
+  - name: Officer
+    isClue: 0
     position: {x: -50, y: -238}
     size: {x: 115, y: 322}
     sprite: {fileID: 21300000, guid: 6f04f3eb523fa464ca74918f6c8f6646, type: 3}
     dialogueFile: {fileID: 4900000, guid: 6596d268a9dc0764cb0ef9294815ff6c, type: 3}
+    alternateDialogueFile: {fileID: 4900000, guid: cdbdfb2f098d7f844bb2e0a5f62a6e9b, type: 3}

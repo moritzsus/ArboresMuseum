@@ -18,6 +18,8 @@ MonoBehaviour:
     position: {x: -48, y: -200}
     rotation: 90
     icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: MuseumStart
     dialogFile: {fileID: 0}
@@ -28,6 +30,8 @@ MonoBehaviour:
     position: {x: -900, y: -420}
     rotation: 180
     icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: Police
     dialogFile: {fileID: 0}
@@ -38,6 +42,8 @@ MonoBehaviour:
     position: {x: 900, y: -420}
     rotation: 0
     icon: {fileID: 21300000, guid: eecce377ba2d1f94a98e076d58bae8af, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 2
     linkedRoomName: Centre
     dialogFile: {fileID: 0}
@@ -48,6 +54,8 @@ MonoBehaviour:
     position: {x: 540, y: -330}
     rotation: 0
     icon: {fileID: 21300000, guid: f565d7bc76282404bbdd179ecb77474b, type: 3}
+    iconWidth: 40
+    iconHeight: 40
     type: 1
     linkedRoomName: 
     dialogFile: {fileID: 0}
@@ -56,7 +64,9 @@ MonoBehaviour:
     removeAfterFound: 1
   characters:
   - name: Grandpa
+    isClue: 1
     position: {x: -400, y: -210}
     size: {x: 107, y: 285}
     sprite: {fileID: 21300000, guid: 2761054ba06483740b1970d43a56f1a4, type: 3}
     dialogueFile: {fileID: 4900000, guid: acbf77f60bfb21a439fb4d752a4844c3, type: 3}
+    alternateDialogueFile: {fileID: 0}

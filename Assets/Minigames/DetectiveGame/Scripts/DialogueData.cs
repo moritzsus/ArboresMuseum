@@ -19,3 +19,10 @@ public class DialogueChoice
     public string text;
     public int nextLineIndex;
 }
+
+[System.Serializable]
+public class OfficerDialogueWrapper
+{
+    public DialogueData policeInsufficientClues;
+    public DialogueData policeEnoughClues;
+}

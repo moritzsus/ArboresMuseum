@@ -26,8 +26,13 @@ public class DetectiveSceneController : MonoBehaviour
 
     private GameObject hotspotToRemoveAfterInspect;
     private Dictionary<string, RoomData> roomMap;
+    private GameObject policeRoomExitHotspot;
+    private GameObject officerMarkerHotspot;
 
+    private bool officerAlternativeDialogueSeen = false;
     private int cluesFound = 0;
+    private const int CLUES_NEEDED = 5;
+    private HashSet<string> discoveredClues = new();
 
     private void Awake()
     {
@@ -51,6 +56,35 @@ public class DetectiveSceneController : MonoBehaviour
         return cluesFound;
     }
 
+    public void RegisterClue(string clueId)
+    {
+        if (!discoveredClues.Contains(clueId))
+        {
+            discoveredClues.Add(clueId);
+            cluesFound++;
+        }
+    }
+
+    public void MarkOfficerAsInformed()
+    {
+        officerAlternativeDialogueSeen = true;
+    }
+
+    public void SetInteractionEnabled(bool isEnabled)
+    {
+        foreach (Transform hotspot in hotspotContainer)
+        {
+            if (hotspot.TryGetComponent<Button>(out var btn))
+                btn.interactable = isEnabled;
+        }
+
+        foreach (Transform character in characterContainer)
+        {
+            if (character.TryGetComponent<Button>(out var btn))
+                btn.interactable = isEnabled;
+        }
+    }
+
     public void LoadRoom(string roomName)
     {
         RoomData room = roomMap[roomName];
@@ -60,10 +94,24 @@ public class DetectiveSceneController : MonoBehaviour
         ClearCharacters();
 
         foreach (var hs in room.hotspots)
-            CreateHotspot(hs);
+        {
+            bool wasAlreadyFound = discoveredClues.Contains(hs.name);
+            bool shouldRemove = hs.removeAfterFound && wasAlreadyFound;
+
+            if (!shouldRemove)
+            {
+                CreateHotspot(hs);
+            }
+        }
 
         foreach (var ch in room.characters)
+        {
+            // Only create suspects after enough clues found
+            if (roomName == "PoliceRoom" && cluesFound < CLUES_NEEDED)
+                continue;
+
             CreateCharacter(ch);
+        }
     }
 
     private void CreateHotspot(HotspotData hotspotData)
@@ -78,7 +126,31 @@ public class DetectiveSceneController : MonoBehaviour
 
         var button = hs.GetComponent<Button>();
         var image = hs.GetComponent<Image>();
+
+        if (button != null)
+        {
+            ColorBlock cb = button.colors;
+            cb.disabledColor = cb.normalColor;
+            button.colors = cb;
+        }
+
         image.sprite = hotspotData.icon;
+
+        if (hotspotData.name == "Marker")
+        {
+            officerMarkerHotspot = hs;
+            bool shouldShowMarker = GetCluesCount() >= CLUES_NEEDED && !officerAlternativeDialogueSeen;
+            hs.SetActive(shouldShowMarker);
+        }
+
+        if (hotspotData.type == HotspotType.Exit && hotspotData.linkedRoomName == "PoliceRoom")
+        {
+            policeRoomExitHotspot = hs;
+
+            // default: deactivate
+            if (!officerAlternativeDialogueSeen)
+                hs.SetActive(false);
+        }
 
         switch (hotspotData.type)
         {
@@ -115,14 +187,54 @@ public class DetectiveSceneController : MonoBehaviour
         image.type = Image.Type.Simple;
 
         Button button = charObj.GetComponent<Button>();
+        if (button != null)
+        {
+            ColorBlock cb = button.colors;
+            cb.disabledColor = cb.normalColor;
+            button.colors = cb;
+        }
+
         if (ch.dialogueFile != null)
         {
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() =>
+
+            if (ch.name == "Officer")
             {
-                DialogueData data = JsonUtility.FromJson<DialogueData>(ch.dialogueFile.text);
-                DialogueManager.Instance.StartDialogue(data);
-            });
+                button.onClick.AddListener(() =>
+                {
+                    TextAsset selected = Instance.GetCluesCount() < CLUES_NEEDED
+                        ? ch.dialogueFile
+                        : ch.alternateDialogueFile;
+
+                    if (selected != null)
+                    {
+                        DialogueData data = JsonUtility.FromJson<DialogueData>(selected.text);
+                        DialogueManager.Instance.StartDialogue(data);
+
+                        if (Instance.GetCluesCount() >= CLUES_NEEDED)
+                        {
+                            Instance.MarkOfficerAsInformed();
+
+                            if (Instance.officerMarkerHotspot != null)
+                                Instance.officerMarkerHotspot.SetActive(false);
+
+                            if (policeRoomExitHotspot != null)
+                                policeRoomExitHotspot.SetActive(true);
+                        }
+                    }
+                });
+            }
+            else
+            {
+                button.onClick.AddListener(() =>
+                {
+                    DialogueData data = JsonUtility.FromJson<DialogueData>(ch.dialogueFile.text);
+                    DialogueManager.Instance.StartDialogue(data);
+
+                    if (ch.isClue)
+                        Instance.RegisterClue(ch.name);
+                });
+            }
         }
         else
         {
@@ -146,7 +258,7 @@ public class DetectiveSceneController : MonoBehaviour
     {
         inspectOverlay.SetActive(true);
 
-        cluesFound++;
+        RegisterClue(hotspot.name);
 
         inspectImage.sprite = hotspot.inspectImage;
         inspectText.text = hotspot.inspectText;
