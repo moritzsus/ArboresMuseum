@@ -63,10 +63,11 @@ MonoBehaviour:
     inspectText: Ein Knopf. Den hat wohl jemand verloren.
     removeAfterFound: 1
   characters:
-  - name: Grandpa
+  - name: Opa
     isClue: 1
     position: {x: -400, y: -210}
     size: {x: 107, y: 285}
     sprite: {fileID: 21300000, guid: 2761054ba06483740b1970d43a56f1a4, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 2d4f5d6aee61f4e43ac95ea423ccf317, type: 3}
     dialogueFile: {fileID: 4900000, guid: acbf77f60bfb21a439fb4d752a4844c3, type: 3}
     alternateDialogueFile: {fileID: 0}

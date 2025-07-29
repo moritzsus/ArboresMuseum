@@ -23,16 +23,22 @@ public class DetectiveSceneController : MonoBehaviour
     private GameObject hotspotPrefab;
     [SerializeField]
     private GameObject characterPrefab;
+    [SerializeField]
+    private Sprite defaultPlayerIcon;
 
-    private GameObject hotspotToRemoveAfterInspect;
     private Dictionary<string, RoomData> roomMap;
+    private GameObject hotspotToRemoveAfterInspect;
+    private GameObject museumStartExitHotspot;
     private GameObject policeRoomExitHotspot;
     private GameObject officerMarkerHotspot;
 
     private bool officerAlternativeDialogueSeen = false;
+    private bool guardDialogueSeen = false;
     private int cluesFound = 0;
     private const int CLUES_NEEDED = 5;
+
     private HashSet<string> discoveredClues = new();
+    private Dictionary<string, Sprite> dialogueIcons = new();
 
     private void Awake()
     {
@@ -48,6 +54,7 @@ public class DetectiveSceneController : MonoBehaviour
         inspectOverlay.SetActive(false);
 
         roomMap = rooms.ToDictionary(r => r.name, r => r);
+        dialogueIcons["Spieler"] = defaultPlayerIcon;
         LoadRoom("MuseumStart");
     }
 
@@ -112,6 +119,8 @@ public class DetectiveSceneController : MonoBehaviour
 
             CreateCharacter(ch);
         }
+
+        DialogueManager.Instance.SetSpeakerIcons(dialogueIcons);
     }
 
     private void CreateHotspot(HotspotData hotspotData)
@@ -149,6 +158,15 @@ public class DetectiveSceneController : MonoBehaviour
 
             // default: deactivate
             if (!officerAlternativeDialogueSeen)
+                hs.SetActive(false);
+        }
+
+        if (hotspotData.type == HotspotType.Exit && hotspotData.name == "Move_Outside")
+        {
+            museumStartExitHotspot = hs;
+
+            // default: deactivate
+            if (!guardDialogueSeen)
                 hs.SetActive(false);
         }
 
@@ -194,6 +212,9 @@ public class DetectiveSceneController : MonoBehaviour
             button.colors = cb;
         }
 
+        if (!dialogueIcons.ContainsKey(ch.name) && ch.characterDialogIcon != null)
+            dialogueIcons.Add(ch.name, ch.characterDialogIcon);
+
         if (ch.dialogueFile != null)
         {
             button.onClick.RemoveAllListeners();
@@ -233,6 +254,13 @@ public class DetectiveSceneController : MonoBehaviour
 
                     if (ch.isClue)
                         Instance.RegisterClue(ch.name);
+
+                    if (ch.name == "Wächter")
+                    {
+                        guardDialogueSeen = true;
+                        if (museumStartExitHotspot != null)
+                            museumStartExitHotspot.SetActive(true);
+                    }
                 });
             }
         }

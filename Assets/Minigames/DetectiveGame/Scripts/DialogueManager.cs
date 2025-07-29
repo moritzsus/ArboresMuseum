@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,12 @@ public class DialogueManager : MonoBehaviour
     public GameObject choicesContainer;
     public Button choiceButtonPrefab;
     public Button nextButton;
+    public Image dialogueIconImage;
 
     private DialogueData currentDialogue;
     private int currentLineIndex;
+
+    private Dictionary<string, Sprite> speakerIcons = new();
 
     private void Awake()
     {
@@ -25,6 +29,11 @@ public class DialogueManager : MonoBehaviour
 
         if (dialogueContainer != null)
             dialogueContainer.SetActive(false);
+    }
+
+    public void SetSpeakerIcons(Dictionary<string, Sprite> iconMap)
+    {
+        speakerIcons = iconMap;
     }
 
     public void StartDialogue(DialogueData data)
@@ -52,6 +61,13 @@ public class DialogueManager : MonoBehaviour
         var line = currentDialogue.lines[currentLineIndex];
         speakerText.text = line.speaker;
         dialogueText.text = line.text;
+
+        if (speakerIcons.TryGetValue(line.speaker, out Sprite icon))
+        {
+            dialogueIconImage.sprite = icon;
+        }
+        else
+            dialogueIconImage.sprite = null;
 
         if (line.choices != null && line.choices.Length > 0)
         {

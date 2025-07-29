@@ -51,18 +51,20 @@ MonoBehaviour:
     inspectText: Das gestohlene Bild! Und ein einzelner Handschuh...
     removeAfterFound: 1
   characters:
-  - name: Woman
+  - name: Junge Frau
     isClue: 1
     position: {x: -600, y: -150}
     size: {x: 137, y: 538}
     sprite: {fileID: 21300000, guid: 5372bacc018b44e41815a3381f83f517, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 86dc4f1c3538e8343bb13e3c49ee62cd, type: 3}
     dialogueFile: {fileID: 4900000, guid: cc518481a7155ca4986b8c0333bda3b3, type: 3}
     alternateDialogueFile: {fileID: 0}
-  - name: Family
+  - name: Familie
     isClue: 0
     position: {x: -61, y: -297}
     size: {x: 553, y: 408}
     sprite: {fileID: 21300000, guid: 890d5338e9ac431468f72a2b6c107c3d, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 6e7ffeceb9f04e643b0e16dcdbb22662, type: 3}
     dialogueFile: {fileID: 4900000, guid: b1a6b30760c10eb4a97c6906e5320563, type: 3}
     alternateDialogueFile: {fileID: 0}
   - name: Jogger
@@ -70,5 +72,6 @@ MonoBehaviour:
     position: {x: 446, y: -58}
     size: {x: 214, y: 435}
     sprite: {fileID: 21300000, guid: 9853d5981823d0547969f28ac305b87a, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 9e59626554981e24bb3d97428e6f9b3d, type: 3}
     dialogueFile: {fileID: 4900000, guid: 4631b6fa97c0979489456a8519ca8413, type: 3}
     alternateDialogueFile: {fileID: 0}

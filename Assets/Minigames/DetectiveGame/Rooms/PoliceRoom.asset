@@ -27,28 +27,43 @@ MonoBehaviour:
     inspectText: 
     removeAfterFound: 0
   characters:
-  - name: Person2
+  - name: "Verd\xE4chtiger 2"
+    isClue: 0
     position: {x: -325, y: -58}
     size: {x: 276, y: 664}
     sprite: {fileID: 21300000, guid: 1e27076423f096a46bbd612eeebc0cd8, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 6d4846b83d3230f4ba915cc1bad7c2ff, type: 3}
     dialogueFile: {fileID: 4900000, guid: 0f37c924b930b474bbb59324e08c0c8f, type: 3}
-  - name: Person1
+    alternateDialogueFile: {fileID: 0}
+  - name: "Verd\xE4chtiger 1"
+    isClue: 0
     position: {x: -579, y: 13}
     size: {x: 283, y: 855}
     sprite: {fileID: 21300000, guid: 1b096b0088a19d542bb43d3f54fadf93, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 8f537af9c22d4564f8b36e3c83908cd9, type: 3}
     dialogueFile: {fileID: 4900000, guid: 0ef901ce16c4c26469c5e7443e0a679f, type: 3}
-  - name: Person4
+    alternateDialogueFile: {fileID: 0}
+  - name: "Verd\xE4chtiger 4"
+    isClue: 0
     position: {x: 199, y: -18}
     size: {x: 252, y: 805}
     sprite: {fileID: 21300000, guid: a49a0feeddff3fe43972b4e28a2ef45e, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 2c37560aa0238bd4ea72e0ace7711019, type: 3}
     dialogueFile: {fileID: 4900000, guid: dbdb7c31e9a83804482d0a96ae488fc6, type: 3}
-  - name: Person3
+    alternateDialogueFile: {fileID: 0}
+  - name: "Verd\xE4chtiger 3"
+    isClue: 0
     position: {x: -56, y: -28}
     size: {x: 312, y: 825}
     sprite: {fileID: 21300000, guid: bc9d129e59639e8478e35ce48159a652, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 0591d7dcd83bdca4b9fe4b87535e08b9, type: 3}
     dialogueFile: {fileID: 4900000, guid: f79fb11c575055749a141509ae5fec6f, type: 3}
-  - name: Person5
+    alternateDialogueFile: {fileID: 0}
+  - name: "Verd\xE4chtiger 5"
+    isClue: 0
     position: {x: 470, y: -16}
     size: {x: 316, y: 850}
     sprite: {fileID: 21300000, guid: 7ce2f0b7845063644bfac47312408728, type: 3}
+    characterDialogIcon: {fileID: 21300000, guid: 542827ac7de1cd3438a16f7f89077d4c, type: 3}
     dialogueFile: {fileID: 4900000, guid: 183b67b1fbb66ab4cb33956090382cf1, type: 3}
+    alternateDialogueFile: {fileID: 0}
