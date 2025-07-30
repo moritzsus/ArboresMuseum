@@ -5,6 +5,7 @@ public class CharacterData
 {
     public string name;
     public bool isClue;
+    public bool isGuilty;
     public Vector2 position;
     public Vector2 size = new Vector2(100, 200);
     public Sprite sprite;

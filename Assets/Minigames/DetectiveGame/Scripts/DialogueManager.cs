@@ -13,6 +13,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject choicesContainer;
     public Button choiceButtonPrefab;
     public Button nextButton;
+    public Button accuseButton;
     public Image dialogueIconImage;
 
     private DialogueData currentDialogue;
@@ -38,6 +39,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueData data)
     {
+        accuseButton.gameObject.SetActive(false);
+
         if (dialogueContainer != null)
             dialogueContainer.SetActive(true);
 
@@ -84,6 +87,36 @@ public class DialogueManager : MonoBehaviour
         {
             nextButton.gameObject.SetActive(true);
         }
+
+        // Show acuse button if we speak with suspects
+        bool isInPoliceRoom = DetectiveSceneController.Instance.IsCurrentRoom("PoliceRoom");
+        bool isSuspect = DetectiveSceneController.Instance.IsSuspect(line.speaker);
+
+        if (isInPoliceRoom && isSuspect)
+        {
+            accuseButton.gameObject.SetActive(true);
+            accuseButton.onClick.RemoveAllListeners();
+            accuseButton.onClick.AddListener(() =>
+            {
+                DialogueManager.Instance.OnAccuse(line.speaker);
+            });
+
+            // Move acuse button over the current suspect
+            CharacterData ch = DetectiveSceneController.Instance.GetCharacterDataByName(line.speaker);
+            if (ch != null)
+            {
+                RectTransform rt = accuseButton.GetComponent<RectTransform>();
+                Vector2 pos = rt.anchoredPosition;
+
+                pos.x = ch.position.x + 800; // 800 = ca Layout offset
+
+                rt.anchoredPosition = pos;
+            }
+        }
+        else
+        {
+            accuseButton.gameObject.SetActive(false);
+        }
     }
 
     public void OnNextPressed()
@@ -121,5 +154,21 @@ public class DialogueManager : MonoBehaviour
             dialogueContainer.SetActive(false);
 
         DetectiveSceneController.Instance.SetInteractionEnabled(true);
+    }
+
+    public void OnAccuse(string accusedName)
+    {
+        bool isCorrect = DetectiveSceneController.Instance.IsGuilty(accusedName);
+
+        EndDialogue();
+        DetectiveSceneController.Instance.SetInteractionEnabled(false);
+
+        string result = isCorrect ? "Richtig!" : "Falsch!";
+        Debug.Log(result);
+
+        // TODO show Info UI
+        // Suspect guilty?
+        // Num Clues found?
+        // Stolen image returned?
     }
 }

@@ -40,6 +40,9 @@ public class DetectiveSceneController : MonoBehaviour
     private HashSet<string> discoveredClues = new();
     private Dictionary<string, Sprite> dialogueIcons = new();
 
+    private string currentRoomName;
+    private List<CharacterData> currentCharacters = new();
+
     private void Awake()
     {
         if (Instance == null)
@@ -58,10 +61,39 @@ public class DetectiveSceneController : MonoBehaviour
         LoadRoom("MuseumStart");
     }
 
+    public bool IsCurrentRoom(string name)
+    {
+        return currentRoomName == name;
+    }
+
+    public bool IsSuspect(string name)
+    {
+        return currentCharacters.Any(c => c.name == name);
+    }
+
+    public bool IsGuilty(string name)
+    {
+        return currentCharacters.FirstOrDefault(c => c.name == name)?.isGuilty ?? false;
+    }
+
     public int GetCluesCount()
     {
         return cluesFound;
     }
+
+    public CharacterData GetCharacterDataByName(string name)
+    {
+        foreach (var room in rooms)
+        {
+            foreach (var ch in room.characters)
+            {
+                if (ch.name == name)
+                    return ch;
+            }
+        }
+        return null;
+    }
+
 
     public void RegisterClue(string clueId)
     {
@@ -94,6 +126,9 @@ public class DetectiveSceneController : MonoBehaviour
 
     public void LoadRoom(string roomName)
     {
+        currentRoomName = roomName;
+        currentCharacters.Clear();
+
         RoomData room = roomMap[roomName];
         backgroundImage.sprite = room.backgroundImage;
 
@@ -118,6 +153,7 @@ public class DetectiveSceneController : MonoBehaviour
                 continue;
 
             CreateCharacter(ch);
+            currentCharacters.Add(ch);
         }
 
         DialogueManager.Instance.SetSpeakerIcons(dialogueIcons);
