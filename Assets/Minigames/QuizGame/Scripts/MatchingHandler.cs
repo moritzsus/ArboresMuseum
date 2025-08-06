@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using TMPro;
@@ -8,11 +9,13 @@ public class MatchingHandler : MonoBehaviour
 {
     public Button[] imageButtons;
     public Button[] textButtons;
-    private SpriteState defaultSpriteState;
 
-    private int selectedImageIndex = -1;
     private bool[] matchedImages = new bool[4];
     private bool[] matchedTexts = new bool[4];
+
+    private int selectedImageIndex = -1;
+    private int selectedTextIndex = -1;
+
     private MatchingQuestion currentQuestion;
     private QuizManager quizManager;
 
@@ -27,6 +30,9 @@ public class MatchingHandler : MonoBehaviour
         selectedImageIndex = -1;
         matchedImages = new bool[4];
         matchedTexts = new bool[4];
+
+        selectedImageIndex = -1;
+        selectedTextIndex = -1;
 
         for (int i = 0; i < 4; i++)
         {
@@ -46,41 +52,88 @@ public class MatchingHandler : MonoBehaviour
         }
     }
 
-    private void OnImageSelected(int index)
+    private void OnImageSelected(int imageIndex)
     {
-        if (matchedImages[index]) return;
+        if (matchedImages[imageIndex]) return;
 
-        selectedImageIndex = index;
+        if (selectedImageIndex == imageIndex)
+        {
+            SetButtonColor(imageButtons[imageIndex], Color.white);
+            selectedImageIndex = -1;
+            return;
+        }
 
-        for (int i = 0; i < 4; i++)
-            SetButtonColor(imageButtons[i], matchedImages[i] ? Color.green : Color.white);
+        if (selectedTextIndex != -1)
+        {
+            CheckMatch(imageIndex, selectedTextIndex);
+            return;
+        }
 
-        SetButtonColor(imageButtons[index], Color.yellow);
+        if (selectedImageIndex != -1)
+        {
+            SetButtonColor(imageButtons[selectedImageIndex], Color.white);
+        }
+
+        selectedImageIndex = imageIndex;
+        selectedTextIndex = -1;
+
+        SetButtonColor(imageButtons[imageIndex], Color.yellow);
     }
 
     private void OnTextSelected(int textIndex)
     {
-        if (selectedImageIndex == -1 || matchedTexts[textIndex]) return;
+        if (matchedTexts[textIndex]) return;
 
-        int correctTextIndex = currentQuestion.correctMatches[selectedImageIndex];
-        Button imageBtn = imageButtons[selectedImageIndex];
+        if (selectedTextIndex == textIndex)
+        {
+            SetButtonColor(textButtons[textIndex], Color.white);
+            selectedTextIndex = -1;
+            return;
+        }
+
+        if (selectedImageIndex != -1)
+        {
+            CheckMatch(selectedImageIndex, textIndex);
+            return;
+        }
+
+        if (selectedTextIndex != -1)
+        {
+            SetButtonColor(textButtons[selectedTextIndex], Color.white);
+        }
+
+        selectedTextIndex = textIndex;
+        selectedImageIndex = -1;
+
+        SetButtonColor(textButtons[textIndex], Color.yellow);
+    }
+
+    private void CheckMatch(int imageIndex, int textIndex)
+    {
+        bool isCorrect = currentQuestion.correctMatches[imageIndex] == textIndex;
+
+        Button imageBtn = imageButtons[imageIndex];
         Button textBtn = textButtons[textIndex];
 
-        if (textIndex == correctTextIndex)
+        if (isCorrect)
         {
             SetButtonColor(imageBtn, Color.green);
             SetButtonColor(textBtn, Color.green);
             imageBtn.interactable = false;
             textBtn.interactable = false;
-            matchedImages[selectedImageIndex] = true;
+
+            matchedImages[imageIndex] = true;
             matchedTexts[textIndex] = true;
+
+            selectedImageIndex = -1;
+            selectedTextIndex = -1;
+
+            ResetUnmatchedButtonColors();
         }
         else
         {
             StartCoroutine(FlashRed(imageBtn, textBtn));
         }
-
-        selectedImageIndex = -1;
 
         if (AllMatched())
         {
@@ -90,23 +143,46 @@ public class MatchingHandler : MonoBehaviour
 
     private IEnumerator FlashRed(Button imageBtn, Button textBtn)
     {
+        Debug.Log("Red");
+
         SetButtonColor(imageBtn, Color.red);
         SetButtonColor(textBtn, Color.red);
-        yield return new WaitForSeconds(1f);
-        SetButtonColor(imageBtn, Color.white);
-        SetButtonColor(textBtn, Color.white);
-    }
 
-    private bool AllMatched()
-    {
-        return matchedImages.All(m => m);
+        yield return new WaitForSeconds(1f);
+
+        if (!matchedImages[Array.IndexOf(imageButtons, imageBtn)])
+            SetButtonColor(imageBtn, Color.white);
+        if (!matchedTexts[Array.IndexOf(textButtons, textBtn)])
+            SetButtonColor(textBtn, Color.white);
+
+        selectedImageIndex = -1;
+        selectedTextIndex = -1;
+
+        ResetUnmatchedButtonColors();
     }
 
     private void SetButtonColor(Button btn, Color color)
     {
         ColorBlock cb = btn.colors;
         cb.normalColor = color;
+        cb.highlightedColor = color;
+        cb.pressedColor = color;
+        cb.selectedColor = color;
         cb.disabledColor = color;
         btn.colors = cb;
+    }
+
+    private void ResetUnmatchedButtonColors()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (!matchedImages[i]) SetButtonColor(imageButtons[i], Color.white);
+            if (!matchedTexts[i]) SetButtonColor(textButtons[i], Color.white);
+        }
+    }
+
+    private bool AllMatched()
+    {
+        return matchedImages.All(m => m);
     }
 }
