@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private BoxCollider2D coll;
+    private Animator animator;
     private float horizontalInput;
 
     private float lastGroundedTime;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -52,6 +54,8 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
+
+        animator.SetBool("isWalking", horizontalInput != 0);
 
         // Update grounded time
         if (IsGrounded())
@@ -92,6 +96,7 @@ public class PlayerController : MonoBehaviour
         Bounds bounds = coll.bounds;
         Vector2 origin = new Vector2(bounds.center.x, bounds.min.y);
         Vector2 size = new Vector2(bounds.size.x * 0.9f, 0.1f);
+
         return Physics2D.OverlapBox(origin, size, 0f, groundLayer);
     }
 
