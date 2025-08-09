@@ -34,6 +34,10 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+
+        // Initialize timers to prevent unwanted jump at start
+        lastJumpPressedTime = -1f;
+        lastGroundedTime = -1f;
     }
 
     void Update()
@@ -53,19 +57,6 @@ public class PlayerController : MonoBehaviour
         if (horizontalInput != 0)
             transform.localScale = new Vector3(Mathf.Sign(horizontalInput), 1, 1);
     }
-
-    //void FixedUpdate()
-    //{
-    //    rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
-
-    //    animator.SetBool("isWalking", horizontalInput != 0);
-    //    animator.SetBool("isGrounded", IsGrounded());
-    //    animator.SetFloat("ySpeed", rb.linearVelocity.y);
-
-    //    // Update grounded time
-    //    if (IsGrounded())
-    //        lastGroundedTime = Time.time;
-    //}
 
     void FixedUpdate()
     {
