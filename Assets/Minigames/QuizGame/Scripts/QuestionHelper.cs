@@ -85,7 +85,7 @@ public static class QuestionHelper
                 questionType = QuestionType.Matching,
                 questionText = "Ordne die Bilder dem jeweiligen Werk in dem sie vorkommen zu.",
                 images = new Sprite[] { _matching2a, _matching2b, _matching2c, _matching2d },
-                answerTexts = new string[] { "Commentary on the Apocalypse", "Notitia Dignitatum", "Somme rurale", "Tractatus de arboribus consanguinitatis et affinitatis" },
+                answerTexts = new string[] { "Commentary on the Apocalypse", "Notitia Dignitatum", "Somme rurale", "Canones poenitentiales" },
                 correctMatches = new int[] { 0, 1, 2, 3 }
             },
             new MatchingQuestion
