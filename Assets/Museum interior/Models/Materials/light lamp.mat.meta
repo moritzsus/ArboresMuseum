@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cb6c78dd15c4ec4418cd57495cc39039
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281559
+  packageName: Museum Interior
+  packageVersion: 1.0
+  assetPath: Assets/Museum interior/Models/Materials/light lamp.mat
+  uploadId: 655326
