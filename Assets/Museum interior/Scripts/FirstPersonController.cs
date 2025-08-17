@@ -6,7 +6,6 @@ public class FirstPersonController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float speed = 7.0f;
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float groundedGravity = -2f;
 
     [Header("Look")]
     [SerializeField] private Transform cameraRoot;
@@ -29,12 +28,10 @@ public class FirstPersonController : MonoBehaviour
         {
             var cam = GetComponentInChildren<Camera>();
             if (cam) cameraRoot = cam.transform;
-            else Debug.LogWarning("Bitte 'cameraRoot' im Inspector zuweisen.");
         }
     }
 
     void Start() => ApplyCursorLock(lockCursor);
-    void OnApplicationFocus(bool hasFocus) { if (lockCursor) ApplyCursorLock(hasFocus); }
 
     void ApplyCursorLock(bool locked)
     {
@@ -44,13 +41,6 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
-        // Cursor Toggle (z.B. für UI)
-        if (Keyboard.current[bindToggleCursorKey].wasPressedThisFrame)
-        {
-            lockCursor = !lockCursor;
-            ApplyCursorLock(lockCursor);
-        }
-
         HandleLook();
         HandleMovement();
     }
