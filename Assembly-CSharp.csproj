@@ -77,6 +77,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\Minigames\PuzzleGame\Scripts\PuzzlePiece.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\MainMenu\Scripts\CharacterSelectButton.cs" />
     <Compile Include="Assets\Minigames\ColorGame\Scripts\ColorPickup.cs" />
     <Compile Include="Assets\Minigames\QuizGame\Scripts\TrueFalseHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Minigames\DetectiveGame\Scripts\DialogueManager.cs" />
     <Compile Include="Assets\Minigames\ColorGame\Scripts\ColorManager.cs" />
+    <Compile Include="Assets\MainMenu\Scripts\GameSettings.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Minigames\ColorGame\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
@@ -122,7 +124,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Museum interior\Scripts\HighlightSpinBob.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\MainMenu\Scripts\StartMenuController.cs" />
     <Compile Include="Assets\Minigames\QuizGame\Scripts\QuizManager.cs" />
   </ItemGroup>
   <ItemGroup>
