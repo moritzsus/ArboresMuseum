@@ -7,39 +7,20 @@ public class MuseumManager : MonoBehaviour
 
     private void Start()
     {
-        ApplyModeAndProgress();
-
-        if (GameSettings.Instance != null)
-            GameSettings.Instance.OnMinigameCompleted += _ => ApplyModeAndProgress();
-    }
-
-    private void OnDestroy()
-    {
-        if (GameSettings.Instance != null)
-            GameSettings.Instance.OnMinigameCompleted -= _ => ApplyModeAndProgress();
-    }
-
-    public void ApplyModeAndProgress()
-    {
         bool explore = GameSettings.Instance != null && GameSettings.Instance.Mode == GameMode.Explore;
 
-        if (minigameEntrances != null)
-            foreach (var go in minigameEntrances)
-                if (go) go.SetActive(!explore);
+        foreach (var mg in minigameEntrances)
+        {
+            mg.SetActive(!explore);
+        }
 
-        if (barriers != null)
-            foreach (var b in barriers)
-                if (b)
-                {
-                    if (explore)
-                    {
-                        if (b.gameObject.activeSelf) b.gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        if (!b.gameObject.activeSelf) b.gameObject.SetActive(true);
-                        b.RefreshState();
-                    }
-                }
+        for (int i = 0; i < barriers.Length; i++)
+        {
+            barriers[i].gameObject.SetActive(!explore && !GameSettings.Instance.IsMinigameCompleted(i));
+        }
+
+        // Set last barrier inactive after game 3 done => no more barriers needed
+        if (!explore && GameSettings.Instance.IsMinigameCompleted(2))
+            barriers[3].gameObject.SetActive(false);
     }
 }

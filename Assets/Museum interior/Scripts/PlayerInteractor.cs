@@ -38,11 +38,22 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (!playerCamera) return;
 
-        if (infoUI && infoUI.IsOpen && openedPlaque)
+        if (infoUI && infoUI.IsOpen)
         {
-            float dist = Vector3.Distance(playerCamera.transform.position, openedPlaque.FocusPosition);
-            if (dist > openedPlaque.InteractRange + closeBuffer)
+            if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+            {
                 infoUI.Close();
+                if (interactPrompt) interactPrompt.gameObject.SetActive(false);
+                return;
+            }
+
+            // auto close on walk away
+            if (openedPlaque)
+            {
+                float dist = Vector3.Distance(playerCamera.transform.position, openedPlaque.FocusPosition);
+                if (dist > openedPlaque.InteractRange + closeBuffer)
+                    infoUI.Close();
+            }
 
             if (interactPrompt) interactPrompt.gameObject.SetActive(false);
             return;
@@ -76,7 +87,7 @@ public class PlayerInteractor : MonoBehaviour
             show = InRange(currentMachine.FocusPosition, currentMachine.InteractRange);
             if (interactPrompt) interactPrompt.text = currentMachine.Prompt;
         }
-        else if (currentBarrier && currentBarrier.IsLocked)
+        else if (currentBarrier)
         {
             show = InRange(currentBarrier.FocusPosition, currentBarrier.InteractRange);
             if (interactPrompt) interactPrompt.text = currentBarrier.LockedPrompt;

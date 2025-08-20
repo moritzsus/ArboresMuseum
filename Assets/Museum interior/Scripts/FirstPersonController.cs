@@ -15,7 +15,6 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Cursor")]
     [SerializeField] private bool lockCursor = true;
-    [SerializeField] private Key bindToggleCursorKey = Key.Escape;
 
     private CharacterController controller;
     private float pitch;

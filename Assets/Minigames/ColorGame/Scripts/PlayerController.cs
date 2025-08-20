@@ -105,14 +105,12 @@ public class PlayerController : MonoBehaviour
             Vector2 vel = rb.linearVelocity;
             vel.x = jumpX;
             vel.y = jumpForce;
-            //rb.SetLinearVelocity(vel);
 
             rb.linearVelocity = vel;
-            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
             isJumping = true;
             isWallSliding = false;
-            lastJumpPressedTime = -1f; // reset buffer
+            lastJumpPressedTime = -1f;
         }
     }
 
@@ -127,10 +125,8 @@ public class PlayerController : MonoBehaviour
 
             Vector2 vel = rb.linearVelocity;
             vel.y = Mathf.Max(vel.y, -wallSlideSpeed);
-            //rb.SetLinearVelocity(vel);
 
             rb.linearVelocity = vel;
-            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed);
         }
         else
         {

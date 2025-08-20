@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ColorManager : MonoBehaviour
@@ -126,6 +127,12 @@ public class ColorManager : MonoBehaviour
         StartCoroutine(FadeDiagonalTo(color, baseTarget, flashDuration));
 
         OnColorUpdate.Invoke(); // TODO needed?
+
+        if (AllColorsUnlocked())
+        {
+            GameSettings.Instance.MarkMinigameCompleted(1);
+            SceneManager.LoadScene("Museum", LoadSceneMode.Single);
+        }
     }
 
     public Color GetCurrentColor()

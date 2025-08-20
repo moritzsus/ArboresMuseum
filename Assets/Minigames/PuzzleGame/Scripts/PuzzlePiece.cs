@@ -27,11 +27,12 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
         glowEffect.effectColor = new Color(1f, 1f, 0f, 0f);
         glowEffect.enabled = true;
-
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (isSnapping) return;
+
         canvasGroup.blocksRaycasts = false;
         rectTransform.SetAsLastSibling();
 
@@ -65,10 +66,13 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (isSnapping) return;
+
         canvasGroup.blocksRaycasts = true;
 
         if (Vector2.Distance(rectTransform.anchoredPosition, targetPos) < 30f)
         {
+            isSnapping = true;
             StartCoroutine(SnapToPosition());
         }
     }

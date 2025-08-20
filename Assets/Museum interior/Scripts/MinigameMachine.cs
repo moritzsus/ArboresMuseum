@@ -17,9 +17,10 @@ public class MinigameMachine : MonoBehaviour
 
     public void Play()
     {
-        if (!string.IsNullOrWhiteSpace(sceneName))
-            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        else
-            Debug.LogWarning("MinigameMachine: 'sceneName' is empty – scene not loaded.");
+        var player = GameObject.FindWithTag("Player");
+        if (player && GameSettings.Instance != null)
+            GameSettings.Instance.SetMuseumReturn(player.transform);
+
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }

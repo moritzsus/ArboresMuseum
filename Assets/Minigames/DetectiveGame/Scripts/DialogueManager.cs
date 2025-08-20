@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -173,6 +174,9 @@ public class DialogueManager : MonoBehaviour
 
         string result = isCorrect ? "Richtig!" : "Falsch!";
         Debug.Log(result);
+
+        GameSettings.Instance.MarkMinigameCompleted(3);
+        SceneManager.LoadScene("Museum", LoadSceneMode.Single);
 
         // TODO show Info UI
         // Suspect guilty?

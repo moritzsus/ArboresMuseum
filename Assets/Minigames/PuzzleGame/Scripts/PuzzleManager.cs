@@ -7,7 +7,19 @@ public class PuzzleManager : MonoBehaviour
 {
     public GameObject puzzlePiecePrefab;
     public RectTransform puzzleParent;
-    public string spritePath = "PuzzleGame/PuzzleArbor";
+    public GameObject endUiCanvas;
+
+    private string spritePath = "";
+    private List<string> spritePaths = new()
+    {
+        "PuzzleGame/PuzzleArbor",
+        "PuzzleGame/P931_Puzzle",
+        "PuzzleGame/P441_Puzzle",
+        "PuzzleGame/P1N1_Puzzle",
+        "PuzzleGame/DO11_Puzzle",
+        "PuzzleGame/CB31_Puzzle",
+        "PuzzleGame/AU11_Puzzle"
+    };
 
     private Sprite[] puzzleSprites;
 
@@ -22,6 +34,10 @@ public class PuzzleManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        endUiCanvas.SetActive(false);
+
+        spritePath = spritePaths[Random.Range(0, spritePaths.Count)];
+
         LoadSprites();
         GeneratePuzzlePieces();
 
@@ -31,11 +47,14 @@ public class PuzzleManager : MonoBehaviour
     {
         correctPieces++;
 
-        Debug.Log("Piece correct, Total: " + correctPieces);
-
         if (correctPieces >= totalPieces)
         {
             Debug.Log("Won");
+
+            GameSettings.Instance.MarkMinigameCompleted(0);
+
+            endUiCanvas.SetActive(true);
+            //SceneManager.LoadScene("Museum", LoadSceneMode.Single);
         }
     }
 
@@ -53,7 +72,7 @@ public class PuzzleManager : MonoBehaviour
             {
                 float posX = x * pieceWidth;
                 float posY = -y * pieceHeight;
-                Debug.Log(posX + " " + posY);
+
                 targetPositions.Add(new Vector2(posX, posY));
             }
         }

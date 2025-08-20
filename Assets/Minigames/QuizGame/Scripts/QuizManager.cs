@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
@@ -37,6 +38,9 @@ public class QuizManager : MonoBehaviour
         if (currentQuestionIndex >= questions.Count)
         {
             Debug.Log("Quiz done!");
+
+            GameSettings.Instance.MarkMinigameCompleted(2);
+            SceneManager.LoadScene("Museum", LoadSceneMode.Single);
             return;
         }
 

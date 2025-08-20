@@ -67,10 +67,13 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Minigames\DetectiveGame\Scripts\RoomData.cs" />
+    <Compile Include="Assets\Minigames\PuzzleGame\Scripts\PuzzleEndUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Museum interior\Scripts\PlayerInteractor.cs" />
     <Compile Include="Assets\Museum interior\Scripts\InfoPanelUI.cs" />
     <Compile Include="Assets\Minigames\PuzzleGame\Scripts\PuzzleManager.cs" />
+    <Compile Include="Assets\Minigames\PuzzleGame\Scripts\PuzzleStartUI.cs" />
+    <Compile Include="Assets\Museum interior\Scripts\MuseumSpawnSetter.cs" />
     <Compile Include="Assets\Museum interior\Scripts\CursorGuard.cs" />
     <Compile Include="Assets\Minigames\QuizGame\Scripts\MatchingHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Minigames\ColorGame\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Minigames\PuzzleGame\Scripts\PuzzlePauseUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -108,6 +112,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Museum interior\Scripts\PictureInfo.cs" />
+    <Compile Include="Assets\Museum interior\Scripts\MuseumIntroUI.cs" />
     <Compile Include="Assets\Museum interior\Scripts\PlayerControllerToggle.cs" />
     <Compile Include="Assets\Minigames\DetectiveGame\Scripts\CharacterData.cs" />
     <Compile Include="Assets\Museum interior\Scripts\MinigameMachine.cs" />
@@ -131,6 +136,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\MainMenu\Scripts\StartMenuController.cs" />
     <Compile Include="Assets\Minigames\QuizGame\Scripts\QuizManager.cs" />
+    <Compile Include="Assets\Museum interior\Scripts\MuseumPauseUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

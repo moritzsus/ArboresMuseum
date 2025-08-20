@@ -51,7 +51,19 @@ public class InfoPanelUI : MonoBehaviour
         float to = show ? 1f : 0f;
         float t = 0f;
 
-        panelGroup.blocksRaycasts = true;
+        if (show)
+        {
+            panelGroup.interactable = true;
+            panelGroup.blocksRaycasts = true;
+        }
+        else
+        {
+            IsOpen = false;
+            panelGroup.interactable = false;
+            panelGroup.blocksRaycasts = false;
+            OnClosed?.Invoke();
+        }
+
         while (t < fadeDuration)
         {
             t += Time.unscaledDeltaTime;
@@ -59,19 +71,11 @@ public class InfoPanelUI : MonoBehaviour
             yield return null;
         }
         panelGroup.alpha = to;
-        bool active = show && to > 0.99f;
-        IsOpen = active;
-        panelGroup.interactable = active;
-        panelGroup.blocksRaycasts = active;
 
-        // Cursor & Time
-        if (active)
+        if (show)
         {
+            IsOpen = true;
             OnOpened?.Invoke();
-        }
-        else
-        {
-            OnClosed?.Invoke();
         }
     }
 
