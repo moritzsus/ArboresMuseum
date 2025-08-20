@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum GameMode
@@ -14,6 +15,9 @@ public class GameSettings : MonoBehaviour
     public string PlayerName { get; private set; } = "";
     public int CharacterIndex { get; private set; } = 0;
 
+    private readonly bool[] minigameCompleted = new bool[4];
+    public Action<int> OnMinigameCompleted;
+
     private void Awake()
     {
         if (Instance && Instance != this) { Destroy(gameObject); return; }
@@ -26,5 +30,16 @@ public class GameSettings : MonoBehaviour
         Mode = mode;
         PlayerName = name;
         CharacterIndex = Mathf.Clamp(charIndex, 0, 3);
+    }
+
+    public bool IsMinigameCompleted(int index)
+        => index >= 0 && index < minigameCompleted.Length && minigameCompleted[index];
+
+    public void MarkMinigameCompleted(int index)
+    {
+        if (index < 0 || index >= minigameCompleted.Length) return;
+        if (minigameCompleted[index]) return;
+        minigameCompleted[index] = true;
+        OnMinigameCompleted?.Invoke(index);
     }
 }

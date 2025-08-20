@@ -53,6 +53,9 @@ public class DetectiveSceneController : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         closeInspectButton.onClick.AddListener(CloseInspect);
         inspectOverlay.SetActive(false);
 

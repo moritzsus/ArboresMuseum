@@ -9,8 +9,23 @@ EditorBuildSettings:
     path: Assets/Scenes/Museum.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: f4457221316899d408a7dd25376b4bd9
+  - enabled: 1
     path: Assets/Museum interior/Scenes/Museum.unity
     guid: d98ed5743b68a6d4ab62e87be7713024
+  - enabled: 1
+    path: Assets/Scenes/PuzzleGame.unity
+    guid: e69ef89a5ac70d34aa144ad77dbff7c4
+  - enabled: 1
+    path: Assets/Scenes/ColorGame.unity
+    guid: bd97cc68f43feb1499f464e223d4fc24
+  - enabled: 1
+    path: Assets/Scenes/QuizGame.unity
+    guid: 548579043e896514d8d4c4ceaefd1356
+  - enabled: 1
+    path: Assets/Scenes/DetectiveGame.unity
+    guid: b163aa1292516394fa67c085e9661006
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

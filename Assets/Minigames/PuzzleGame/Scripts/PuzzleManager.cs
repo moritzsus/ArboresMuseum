@@ -19,13 +19,11 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         LoadSprites();
         GeneratePuzzlePieces();
-
-    }
-
-    void Update()
-    {
 
     }
 

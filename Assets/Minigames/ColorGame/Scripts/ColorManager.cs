@@ -74,13 +74,13 @@ public class ColorManager : MonoBehaviour
     {
         if (volume == null || volume.profile == null)
         {
-            Debug.LogError("Volume oder Volume Profile fehlt!");
+            Debug.LogError("Volume or Volume Profile missing!");
             return;
         }
 
         if (!volume.profile.TryGet(out channelMixer))
         {
-            Debug.LogError("ChannelMixer fehlt im Volume Profile!");
+            Debug.LogError("ChannelMixer missing in Volume Profile!");
             return;
         }
 

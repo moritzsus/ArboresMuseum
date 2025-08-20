@@ -7,23 +7,18 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 {
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
-    private Canvas canvas;
     private Outline glowEffect;
 
-    private Vector2 startPos;
     private Vector2 targetPos;
     private Vector2 dragOffset;
-    private int correctIndex;
 
     private bool isSnapping = false;
 
     public void Init(Vector2 targetPosition, int correctSpriteIndex)
     {
         targetPos = targetPosition;
-        correctIndex = correctSpriteIndex;
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        canvas = GetComponentInParent<Canvas>();
 
         glowEffect = GetComponent<Outline>();
         if (glowEffect == null)
@@ -132,36 +127,4 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         glowEffect.effectColor = new Color(1f, 1f, 0f, 0f);
         glowEffect.effectDistance = new Vector2(startDistance, startDistance);
     }
-
-
-    private IEnumerator PlayBounceEffect()
-    {
-        Vector3 originalScale = rectTransform.localScale;
-        Vector3 targetScale = originalScale * 1.15f;
-        float duration = 0.15f;
-        float elapsed = 0f;
-
-        // Scale up
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            rectTransform.localScale = Vector3.Lerp(originalScale, targetScale, t);
-            yield return null;
-        }
-
-        // Scale down
-        elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            rectTransform.localScale = Vector3.Lerp(targetScale, originalScale, t);
-            yield return null;
-        }
-
-        rectTransform.localScale = originalScale;
-        isSnapping = false;
-    }
-
 }

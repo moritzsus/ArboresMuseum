@@ -14,12 +14,14 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private LayerMask interactableMask;
     [SerializeField] private float closeBuffer = 0.5f;
 
-    private PictureInfo currentAim;
+    private PictureInfo currentPlaque;
     private PictureInfo openedPlaque;
+    private MinigameMachine currentMachine;
+    private DoorBarrier currentBarrier;
 
     private void Awake()
     {
-        interactableMask = LayerMask.GetMask("Interactable");
+        if (interactableMask == 0) interactableMask = LayerMask.GetMask("Interactable");
 
         if (!playerCamera) playerCamera = GetComponentInChildren<Camera>();
         if (!infoUI) infoUI = InfoPanelUI.Instance;
@@ -27,7 +29,7 @@ public class PlayerInteractor : MonoBehaviour
 
         if (infoUI)
         {
-            infoUI.OnOpened += () => { openedPlaque = currentAim; };
+            infoUI.OnOpened += () => { openedPlaque = currentPlaque; };
             infoUI.OnClosed += () => { openedPlaque = null; };
         }
     }
@@ -40,35 +42,62 @@ public class PlayerInteractor : MonoBehaviour
         {
             float dist = Vector3.Distance(playerCamera.transform.position, openedPlaque.FocusPosition);
             if (dist > openedPlaque.InteractRange + closeBuffer)
-            {
                 infoUI.Close();
-            }
 
             if (interactPrompt) interactPrompt.gameObject.SetActive(false);
             return;
         }
 
         // Gaze-Raycast
+        currentPlaque = null;
+        currentMachine = null;
+        currentBarrier = null;
+
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        currentAim = null;
         if (Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, interactableMask, QueryTriggerInteraction.Ignore))
         {
-            currentAim = hit.collider.GetComponentInParent<PictureInfo>()
-                      ?? hit.collider.GetComponent<PictureInfo>();
+            currentMachine = hit.collider.GetComponentInParent<MinigameMachine>()
+                         ?? hit.collider.GetComponent<MinigameMachine>();
+
+            if (!currentMachine)
+            {
+                currentBarrier = hit.collider.GetComponentInParent<DoorBarrier>() ?? hit.collider.GetComponent<DoorBarrier>();
+                if (!currentBarrier)
+                {
+                    currentPlaque = hit.collider.GetComponentInParent<PictureInfo>() ?? hit.collider.GetComponent<PictureInfo>();
+                }
+            }
         }
 
-        bool canInteract = currentAim && IsInRange(currentAim);
-        if (interactPrompt) interactPrompt.gameObject.SetActive(canInteract);
+        bool show = false;
 
-        if (canInteract && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (currentMachine)
         {
-            infoUI.Open(currentAim);
+            show = InRange(currentMachine.FocusPosition, currentMachine.InteractRange);
+            if (interactPrompt) interactPrompt.text = currentMachine.Prompt;
+        }
+        else if (currentBarrier && currentBarrier.IsLocked)
+        {
+            show = InRange(currentBarrier.FocusPosition, currentBarrier.InteractRange);
+            if (interactPrompt) interactPrompt.text = currentBarrier.LockedPrompt;
+        }
+        else if (currentPlaque)
+        {
+            show = InRange(currentPlaque.FocusPosition, currentPlaque.InteractRange);
+            if (interactPrompt) interactPrompt.text = "E – Lesen";
+        }
+
+        if (interactPrompt) interactPrompt.gameObject.SetActive(show);
+
+        if (show && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            if (currentMachine) currentMachine.Play();
+            else if (currentPlaque) infoUI.Open(currentPlaque);
         }
     }
 
-    private bool IsInRange(PictureInfo info)
+    private bool InRange(Vector3 focusPos, float range)
     {
-        float dist = Vector3.Distance(playerCamera.transform.position, info.FocusPosition);
-        return dist <= info.InteractRange;
+        return Vector3.Distance(playerCamera.transform.position, focusPos) <= range;
     }
 }

@@ -20,6 +20,9 @@ public class QuizManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         questions = QuestionHelper.InitQuestions();
         nextButton.interactable = false;
         LoadQuestion();

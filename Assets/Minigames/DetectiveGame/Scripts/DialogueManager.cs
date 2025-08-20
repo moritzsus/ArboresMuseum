@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     private int currentLineIndex;
 
     private Dictionary<string, Sprite> speakerIcons = new();
+    private string playerDisplayName;
 
     private void Awake()
     {
@@ -46,6 +47,8 @@ public class DialogueManager : MonoBehaviour
 
         DetectiveSceneController.Instance.SetInteractionEnabled(false);
 
+        playerDisplayName = GameSettings.Instance.PlayerName;
+
         currentDialogue = data;
         currentLineIndex = 0;
         ShowCurrentLine();
@@ -62,8 +65,13 @@ public class DialogueManager : MonoBehaviour
         }
 
         var line = currentDialogue.lines[currentLineIndex];
-        speakerText.text = line.speaker;
-        dialogueText.text = line.text;
+
+        string displaySpeaker = (line.speaker == "Spieler") ? playerDisplayName : line.speaker;
+        string displayText = (line.text ?? string.Empty)
+            .Replace("<Name>", playerDisplayName);
+
+        speakerText.text = displaySpeaker;
+        dialogueText.text = displayText;
 
         if (speakerIcons.TryGetValue(line.speaker, out Sprite icon))
         {
