@@ -7,6 +7,7 @@ public class MuseumManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         bool explore = GameSettings.Instance != null && GameSettings.Instance.Mode == GameMode.Explore;
 
         foreach (var mg in minigameEntrances)

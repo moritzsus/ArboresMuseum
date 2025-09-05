@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         // Jump buffering & coyote time logic
         if ((Time.time - lastJumpPressedTime) <= jumpBufferTime &&
-            ((Time.time - lastGroundedTime) <= coyoteTime || isWallSliding))
+            ((Time.time - lastGroundedTime) <= coyoteTime))
         {
             float jumpX = rb.linearVelocity.x;
             Vector2 vel = rb.linearVelocity;

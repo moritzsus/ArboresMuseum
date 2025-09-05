@@ -18,7 +18,6 @@ public class WorldColorApplier : MonoBehaviour
 
     private void UpdateColors()
     {
-        Debug.Log("Update");
         colorAdjustments.colorFilter.value = ColorManager.Instance.GetCurrentColor();
     }
 }

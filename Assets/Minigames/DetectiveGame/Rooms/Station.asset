@@ -48,11 +48,12 @@ MonoBehaviour:
     linkedRoomName: Park
     dialogFile: {fileID: 0}
     inspectImage: {fileID: 21300000, guid: 025afab944fe1254a8e08b4979d08b43, type: 3}
-    inspectText: "Ein Fahrplan der alle heutigen Z\xFCge zeigt. Ob das weiterhilft..."
+    inspectText: "Ein Fahrplan, der alle heutigen Z\xFCge zeigt. Ob das weiterhilft..."
     removeAfterFound: 0
   characters:
   - name: Oma
     isClue: 1
+    isGuilty: 0
     position: {x: -252, y: -96}
     size: {x: 158, y: 334}
     sprite: {fileID: 21300000, guid: 7e90c4f90cd526f48a19398a969ca109, type: 3}

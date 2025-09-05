@@ -9,6 +9,8 @@ public class PuzzlePauseUI : MonoBehaviour
     [SerializeField] private Button museumButton;
     [SerializeField] private Button continueButton;
 
+    [SerializeField] private PuzzleManager puzzleManager;
+
     private bool isPaused = false;
 
     private void Start()
@@ -33,10 +35,12 @@ public class PuzzlePauseUI : MonoBehaviour
     private void OnClickContinue()
     {
         if (root) root.SetActive(false);
+        puzzleManager.ResumeTimer();
     }
 
     private void OnClickMuseum()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Museum", LoadSceneMode.Single);
     }
 
@@ -44,11 +48,14 @@ public class PuzzlePauseUI : MonoBehaviour
     {
         if (root) root.SetActive(true);
         isPaused = true;
+        puzzleManager.PauseTimer();
     }
 
     private void ResumeGame()
     {
+        Time.timeScale = 1f;
         if (root) root.SetActive(false);
         isPaused = false;
+        puzzleManager.ResumeTimer();
     }
 }

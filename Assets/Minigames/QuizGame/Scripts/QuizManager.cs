@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
@@ -9,6 +8,8 @@ public class QuizManager : MonoBehaviour
     public GameObject answerGroupMultiple;
     public GameObject answerGroupMatching;
     public GameObject answerGroupTrueFalse;
+
+    public GameObject endUiCanvas;
 
     [Header("UI References")]
     public TextMeshProUGUI questionText;
@@ -24,6 +25,8 @@ public class QuizManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        endUiCanvas.SetActive(false);
+
         questions = QuestionHelper.InitQuestions();
         nextButton.interactable = false;
         LoadQuestion();
@@ -31,16 +34,13 @@ public class QuizManager : MonoBehaviour
 
     public void OnNextQuestion()
     {
-        Debug.Log("Next");
-
         currentQuestionIndex++;
 
         if (currentQuestionIndex >= questions.Count)
         {
-            Debug.Log("Quiz done!");
+            endUiCanvas.SetActive(true);
 
             GameSettings.Instance.MarkMinigameCompleted(2);
-            SceneManager.LoadScene("Museum", LoadSceneMode.Single);
             return;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class PuzzleManager : MonoBehaviour
     public GameObject puzzlePiecePrefab;
     public RectTransform puzzleParent;
     public GameObject endUiCanvas;
+    [SerializeField] private TextMeshProUGUI infoText;
 
     private string spritePath = "";
     private List<string> spritePaths = new()
@@ -29,6 +31,12 @@ public class PuzzleManager : MonoBehaviour
     private int correctPieces = 0;
     private int totalPieces = 25;
 
+    private float startTime;
+    private bool timerRunning = false;
+    private bool isPaused = false;
+    private float totalPauseTime = 0f;
+    private float pauseStartTime = 0f;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -40,7 +48,49 @@ public class PuzzleManager : MonoBehaviour
 
         LoadSprites();
         GeneratePuzzlePieces();
+    }
 
+    public void StartTimer()
+    {
+        startTime = Time.time;
+        timerRunning = true;
+        isPaused = false;
+        totalPauseTime = 0f;
+    }
+
+    public void PauseTimer()
+    {
+        if (timerRunning && !isPaused)
+        {
+            isPaused = true;
+            pauseStartTime = Time.time;
+        }
+    }
+
+    public void ResumeTimer()
+    {
+        if (timerRunning && isPaused)
+        {
+            isPaused = false;
+            totalPauseTime += Time.time - pauseStartTime;
+        }
+    }
+
+    private void StopTimer()
+    {
+        if (timerRunning)
+        {
+            float elapsedTime = Time.time - startTime - totalPauseTime;
+            timerRunning = false;
+
+            int score = CalculateScore(elapsedTime);
+
+            endUiCanvas.SetActive(true);
+
+            infoText.text = $"Du hast das Arbor-Bild erfolgreich zusammen gesetzt.\n" +
+                           $"Dafür hast du {elapsedTime:F1} Sekunden gebraucht und {score} Punkte bekommen.\n" +
+                           $"Kehre nun zurück zum Museum oder spiele erneut.";
+        }
     }
 
     public void NotifyPieceCorrect()
@@ -49,12 +99,9 @@ public class PuzzleManager : MonoBehaviour
 
         if (correctPieces >= totalPieces)
         {
-            Debug.Log("Won");
+            StopTimer();
 
             GameSettings.Instance.MarkMinigameCompleted(0);
-
-            endUiCanvas.SetActive(true);
-            //SceneManager.LoadScene("Museum", LoadSceneMode.Single);
         }
     }
 
@@ -78,7 +125,6 @@ public class PuzzleManager : MonoBehaviour
         }
 
         List<int> spriteIndices = Enumerable.Range(0, puzzleSprites.Length).ToList();
-        Shuffle(spriteIndices);
 
         for (int i = 0; i < puzzleSprites.Length; i++)
         {
@@ -99,12 +145,18 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    private void Shuffle(List<int> list)
+    private int CalculateScore(float timeInSeconds)
     {
-        for (int i = 0; i < list.Count; i++)
+        // faster than 45 seconds => max points
+        if (timeInSeconds <= 45f)
         {
-            int j = Random.Range(i, list.Count);
-            (list[i], list[j]) = (list[j], list[i]);
+            return 100;
         }
+
+        // subtract a point every 2 seconds
+        int deduction = Mathf.FloorToInt(((timeInSeconds - 45f) / 2f) + 1);
+        int score = 100 - deduction;
+
+        return Mathf.Max(0, score);
     }
 }

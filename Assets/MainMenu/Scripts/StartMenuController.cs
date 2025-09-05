@@ -33,7 +33,6 @@ public class StartMenuController : MonoBehaviour
 
     private void Awake()
     {
-        // Falls Szene direkt gestartet wird: GameSettings sicherstellen
         if (!GameSettings.Instance)
         {
             var go = new GameObject("GameSettings");
@@ -43,12 +42,10 @@ public class StartMenuController : MonoBehaviour
         selectedIndex = Mathf.Clamp(defaultCharacterIndex, 0, characterButtons.Length - 1);
         if (nameInput) nameInput.characterLimit = maxNameLen;
 
-        // Anfangszustand UI
         SetMode(GameMode.Play, updateUIOnly: true);
         UpdateCharacterHighlights();
         UpdateValidationUI();
 
-        // Listeners
         if (nameInput) nameInput.onValueChanged.AddListener(_ => UpdateValidationUI());
         foreach (var btn in characterButtons)
             if (btn) btn.SetSelected(btn.Index == selectedIndex);
@@ -59,7 +56,6 @@ public class StartMenuController : MonoBehaviour
         SelectCharacter(0);
     }
 
-    // Diese beiden Funktionen im Inspector auf die Buttons legen:
     public void OnClickPlay() => SetMode(GameMode.Play);
     public void OnClickExplore() => SetMode(GameMode.Explore);
 
@@ -67,7 +63,6 @@ public class StartMenuController : MonoBehaviour
     {
         currentMode = mode;
 
-        // Button-Farben + Highlights
         if (exploreButton && exploreButton.targetGraphic)
             (exploreButton.targetGraphic as Graphic).color =
                 (mode == GameMode.Explore) ? activeButtonColor : inactiveButtonColor;

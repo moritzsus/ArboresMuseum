@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ColorManager : MonoBehaviour
 {
     public static ColorManager Instance;
+
+    public GameObject endUiCanvas;
 
     public bool redUnlocked;
     public bool greenUnlocked;
@@ -34,6 +36,13 @@ public class ColorManager : MonoBehaviour
     private const float LUMA_R = 29.9f;
     private const float LUMA_G = 58.7f;
     private const float LUMA_B = 11.4f;
+
+    [SerializeField] private TextMeshProUGUI infoText;
+    private float startTime;
+    private bool timerRunning = false;
+    private bool isPaused = false;
+    private float totalPauseTime = 0f;
+    private float pauseStartTime = 0f;
 
     private List<(float, float)> redShardPositions = new List<(float, float)>
     {
@@ -73,6 +82,13 @@ public class ColorManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0f;
+
+        endUiCanvas.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         if (volume == null || volume.profile == null)
         {
             Debug.LogError("Volume or Volume Profile missing!");
@@ -88,6 +104,53 @@ public class ColorManager : MonoBehaviour
         EnsureOverridesEnabled();
         ApplyMixerFromFlags();
         AssignRandomShardPositions();
+    }
+
+    public void StartTimer()
+    {
+        Time.timeScale = 1f;
+        startTime = Time.time;
+        timerRunning = true;
+        isPaused = false;
+        totalPauseTime = 0f;
+    }
+
+    public void PauseTimer()
+    {
+        if (timerRunning && !isPaused)
+        {
+            isPaused = true;
+            pauseStartTime = Time.time;
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void ResumeTimer()
+    {
+        if (timerRunning && isPaused)
+        {
+            Time.timeScale = 1f;
+            isPaused = false;
+            totalPauseTime += Time.time - pauseStartTime;
+        }
+    }
+
+    private void StopTimer()
+    {
+        if (timerRunning)
+        {
+            Time.timeScale = 0f;
+            float elapsedTime = Time.time - startTime - totalPauseTime;
+            timerRunning = false;
+
+            int score = CalculateScore(elapsedTime);
+
+            endUiCanvas.SetActive(true);
+
+            infoText.text = $"Du hast erfolgreich alle Farbkugeln gesammelt!\n" +
+                           $"Dafür hast du {elapsedTime:F1} Sekunden gebraucht und {score} Punkte bekommen.\n" +
+                           $"Kehre nun zurück zum Museum oder spiele erneut.";
+        }
     }
 
     public void SetGrayscale()
@@ -130,8 +193,13 @@ public class ColorManager : MonoBehaviour
 
         if (AllColorsUnlocked())
         {
+            StopTimer();
             GameSettings.Instance.MarkMinigameCompleted(1);
-            SceneManager.LoadScene("Museum", LoadSceneMode.Single);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            endUiCanvas.SetActive(true);
         }
     }
 
@@ -254,5 +322,30 @@ public class ColorManager : MonoBehaviour
         channelMixer.blueOutRedIn.value = r;
         channelMixer.blueOutGreenIn.value = g;
         channelMixer.blueOutBlueIn.value = b;
+    }
+
+    private int CalculateScore(float timeInSeconds)
+    {
+        if (timeInSeconds <= 100f)
+        {
+            return 100;
+        }
+
+        int score = 100;
+        float remainingTime = timeInSeconds - 100f;
+
+        if (remainingTime <= 250f)
+        {
+            score -= Mathf.FloorToInt(remainingTime / 5f);
+        }
+        else
+        {
+            score -= 50;
+
+            float timeAfter300s = remainingTime - 250f;
+            score -= Mathf.FloorToInt(timeAfter300s / 10f);
+        }
+
+        return Mathf.Max(0, score);
     }
 }

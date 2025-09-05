@@ -51,12 +51,4 @@ public class MuseumPauseUI : MonoBehaviour
         CursorGuard.Instance.SetNeedsCursor(true);
         isPaused = true;
     }
-
-    //private void ResumeGame()
-    //{
-    //    if (root) root.SetActive(false);
-    //    Time.timeScale = 1f;
-    //    CursorGuard.Instance.SetNeedsCursor(false);
-    //    isPaused = false;
-    //}
 }

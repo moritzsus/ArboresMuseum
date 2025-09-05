@@ -19,6 +19,12 @@ public class PuzzleStartUI : MonoBehaviour
     {
         if (startButton) startButton.onClick.RemoveListener(OnClickStart);
         if (root) root.SetActive(false);
+
+        PuzzleManager puzzleManager = FindFirstObjectByType<PuzzleManager>();
+        if (puzzleManager != null)
+        {
+            puzzleManager.StartTimer();
+        }
     }
 
     private void OnClickBack()

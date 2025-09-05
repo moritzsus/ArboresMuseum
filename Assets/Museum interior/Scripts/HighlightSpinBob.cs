@@ -28,10 +28,6 @@ public class HighlightSpinBob : MonoBehaviour
     {
         if (!Application.isPlaying) return;
 
-        // Optional pausieren, wenn deine Info-UI offen ist
-        //if (pauseWhenInfoOpen && InfoPanelUI.Instance != null && InfoPanelUI.Instance.IsOpen)
-        //    return;
-
         float dt = Time.deltaTime;
 
         // 1) rotation

@@ -3178,6 +3178,7 @@ MonoBehaviour:
   puzzlePiecePrefab: {fileID: 8144588827370581054, guid: cabf41c26a02dd0448bb0002f1505859, type: 3}
   puzzleParent: {fileID: 425298952}
   endUiCanvas: {fileID: 1860180149}
+  infoText: {fileID: 961839966}
 --- !u!4 &1909760180
 Transform:
   m_ObjectHideFlags: 0
@@ -3238,6 +3239,7 @@ MonoBehaviour:
   root: {fileID: 1676678685}
   museumButton: {fileID: 332947368}
   continueButton: {fileID: 1021756084}
+  puzzleManager: {fileID: 1909760179}
 --- !u!1 &1925214233
 GameObject:
   m_ObjectHideFlags: 0

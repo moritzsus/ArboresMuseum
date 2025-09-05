@@ -10,7 +10,6 @@ public class GameSettings : MonoBehaviour
 {
     public static GameSettings Instance { get; private set; }
 
-    // TODO Attribute needed?
     [System.NonSerialized] private bool hasMuseumReturn;
     [System.NonSerialized] private Vector3 museumReturnPos;
     [System.NonSerialized] private Quaternion museumReturnRot;
@@ -21,6 +20,7 @@ public class GameSettings : MonoBehaviour
     public bool MuseumIntroSeen { get; set; } = false;
 
     private readonly bool[] minigameCompleted = new bool[4];
+    private readonly float[] minigamePoints = new float[4];
 
     private void Awake()
     {

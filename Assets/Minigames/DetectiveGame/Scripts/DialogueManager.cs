@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
+
+    public GameObject endUiCanvas;
+    public TextMeshProUGUI endTitle;
+    public TextMeshProUGUI endText;
 
     public TextMeshProUGUI speakerText;
     public TextMeshProUGUI dialogueText;
@@ -32,6 +35,11 @@ public class DialogueManager : MonoBehaviour
 
         if (dialogueContainer != null)
             dialogueContainer.SetActive(false);
+    }
+
+    private void Start()
+    {
+        endUiCanvas.SetActive(false);
     }
 
     public void SetSpeakerIcons(Dictionary<string, Sprite> iconMap)
@@ -168,19 +176,22 @@ public class DialogueManager : MonoBehaviour
     public void OnAccuse(string accusedName)
     {
         bool isCorrect = DetectiveSceneController.Instance.IsGuilty(accusedName);
+        bool foundPainting = DetectiveSceneController.Instance.HasFoundStolenPainting();
+        int cluesFound = DetectiveSceneController.Instance.GetCluesCount();
 
         EndDialogue();
         DetectiveSceneController.Instance.SetInteractionEnabled(false);
 
-        string result = isCorrect ? "Richtig!" : "Falsch!";
-        Debug.Log(result);
-
         GameSettings.Instance.MarkMinigameCompleted(3);
-        SceneManager.LoadScene("Museum", LoadSceneMode.Single);
 
-        // TODO show Info UI
-        // Suspect guilty?
-        // Num Clues found?
-        // Stolen image returned?
+        endTitle.text = isCorrect || foundPainting ? "Glückwunsch" : "Spielende";
+
+        string infoText = $"Du hast {cluesFound} Hinweise gefunden.\n";
+        infoText += foundPainting ? "Du hast das gestohlene Bild gefunden.\n" : "Du hast das gestohlene Bild nicht gefunden.\n";
+        infoText += isCorrect ? "Die identifizierte Person war der Täter." : "Die identifizierte Person war nicht der Täter.";
+
+        endText.text = infoText;
+
+        endUiCanvas.SetActive(true);
     }
 }

@@ -84,6 +84,11 @@ public class DetectiveSceneController : MonoBehaviour
         return cluesFound;
     }
 
+    public bool HasFoundStolenPainting()
+    {
+        return discoveredClues.Contains("HiddenImage");
+    }
+
     public CharacterData GetCharacterDataByName(string name)
     {
         foreach (var room in rooms)
