@@ -42,6 +42,11 @@ public class MultipleHandler : MonoBehaviour
 
     private void OnAnswerSelected(int selectedIndex)
     {
+        if (selectedIndex != correctAnswerIndex)
+        {
+            quizManager.DeductPointsForMultipleChoice();
+        }
+
         for (int i = 0; i < answerButtons.Length; i++)
         {
             answerButtons[i].interactable = false;
@@ -56,7 +61,6 @@ public class MultipleHandler : MonoBehaviour
             answerButtons[i].colors = cb;
         }
 
-        Debug.Log("Befor next");
         quizManager.EnableNextButton();
     }
 }

@@ -132,6 +132,7 @@ public class MatchingHandler : MonoBehaviour
         }
         else
         {
+            quizManager.DeductPointsForMatching();
             StartCoroutine(FlashRed(imageBtn, textBtn));
         }
 
@@ -143,8 +144,6 @@ public class MatchingHandler : MonoBehaviour
 
     private IEnumerator FlashRed(Button imageBtn, Button textBtn)
     {
-        Debug.Log("Red");
-
         SetButtonColor(imageBtn, Color.red);
         SetButtonColor(textBtn, Color.red);
 

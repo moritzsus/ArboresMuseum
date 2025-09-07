@@ -50,6 +50,8 @@ public class TrueFalseHandler : MonoBehaviour
         }
         else
         {
+            quizManager.DeductPointsForTrueFalse();
+
             SetButtonColor(selectedAnswer ? trueButton : falseButton, Color.red);
             SetButtonColor(!selectedAnswer ? trueButton : falseButton, Color.green);
         }

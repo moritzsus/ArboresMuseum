@@ -2141,6 +2141,7 @@ MonoBehaviour:
   answerGroupMatching: {fileID: 1628280865}
   answerGroupTrueFalse: {fileID: 1628280873}
   endUiCanvas: {fileID: 2081507528}
+  infoText: {fileID: 2057512280}
   questionText: {fileID: 1628280872}
   nextButton: {fileID: 1628280856}
   questions: []

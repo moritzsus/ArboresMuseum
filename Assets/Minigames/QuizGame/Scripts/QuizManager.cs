@@ -10,6 +10,7 @@ public class QuizManager : MonoBehaviour
     public GameObject answerGroupTrueFalse;
 
     public GameObject endUiCanvas;
+    [SerializeField] private TextMeshProUGUI infoText;
 
     [Header("UI References")]
     public TextMeshProUGUI questionText;
@@ -19,6 +20,8 @@ public class QuizManager : MonoBehaviour
     public List<QuestionBase> questions;
 
     private int currentQuestionIndex = 0;
+    private int totalScore = 100;
+    private Dictionary<int, int> matchingErrorCounts = new Dictionary<int, int>();
 
     void Start()
     {
@@ -38,9 +41,7 @@ public class QuizManager : MonoBehaviour
 
         if (currentQuestionIndex >= questions.Count)
         {
-            endUiCanvas.SetActive(true);
-
-            GameSettings.Instance.MarkMinigameCompleted(2);
+            ShowResults();
             return;
         }
 
@@ -70,6 +71,10 @@ public class QuizManager : MonoBehaviour
                 answerGroupMatching.SetActive(true);
                 var matchQ = (MatchingQuestion)q;
                 GetComponent<MatchingHandler>().Setup(matchQ);
+                if (!matchingErrorCounts.ContainsKey(currentQuestionIndex))
+                {
+                    matchingErrorCounts[currentQuestionIndex] = 0;
+                }
                 break;
 
             case QuestionType.TrueFalse:
@@ -83,5 +88,37 @@ public class QuizManager : MonoBehaviour
     public void EnableNextButton()
     {
         nextButton.interactable = true;
+    }
+
+    public void DeductPointsForMultipleChoice()
+    {
+        totalScore = Mathf.Max(0, totalScore - 6);
+    }
+
+    public void DeductPointsForMatching()
+    {
+        // limit max point deduction
+        if (matchingErrorCounts[currentQuestionIndex] < 3)
+        {
+            matchingErrorCounts[currentQuestionIndex]++;
+            totalScore = Mathf.Max(0, totalScore - 4);
+        }
+    }
+
+    public void DeductPointsForTrueFalse()
+    {
+        totalScore = Mathf.Max(0, totalScore - 10);
+    }
+
+    private void ShowResults()
+    {
+        endUiCanvas.SetActive(true);
+
+        if (infoText != null)
+        {
+            infoText.text = $"Du hast alle Fragen beantwortet. Dabei hast du {totalScore} von 100 Punkten erreicht.";
+        }
+
+        GameSettings.Instance.MarkMinigameCompleted(2);
     }
 }

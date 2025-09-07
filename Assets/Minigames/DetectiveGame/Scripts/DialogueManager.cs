@@ -184,11 +184,15 @@ public class DialogueManager : MonoBehaviour
 
         GameSettings.Instance.MarkMinigameCompleted(3);
 
-        endTitle.text = isCorrect || foundPainting ? "Glückwunsch" : "Spielende";
+        endTitle.text = isCorrect && foundPainting ? "Glückwunsch" : "Spielende";
 
         string infoText = $"Du hast {cluesFound} Hinweise gefunden.\n";
         infoText += foundPainting ? "Du hast das gestohlene Bild gefunden.\n" : "Du hast das gestohlene Bild nicht gefunden.\n";
-        infoText += isCorrect ? "Die identifizierte Person war der Täter." : "Die identifizierte Person war nicht der Täter.";
+        infoText += isCorrect ? "Die identifizierte Person war der Täter." : "Die identifizierte Person war nicht der Täter.\n";
+
+        int points = 100 - (isCorrect ? 0 : 25) - (foundPainting ? 0 : 25) - ((8 - cluesFound) * 8);
+
+        infoText += $"In diesem Spiel hast du dadurch {points} Punkte gesammel.";
 
         endText.text = infoText;
 
