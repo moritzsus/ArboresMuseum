@@ -37,6 +37,8 @@ public class PuzzleManager : MonoBehaviour
     private float totalPauseTime = 0f;
     private float pauseStartTime = 0f;
 
+    private int gameScore = 0;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -83,12 +85,12 @@ public class PuzzleManager : MonoBehaviour
             float elapsedTime = Time.time - startTime - totalPauseTime;
             timerRunning = false;
 
-            int score = CalculateScore(elapsedTime);
+            gameScore = CalculateScore(elapsedTime);
 
             endUiCanvas.SetActive(true);
 
             infoText.text = $"Du hast das Arbor-Bild erfolgreich zusammen gesetzt.\n" +
-                           $"Dafür hast du {elapsedTime:F1} Sekunden gebraucht und {score} Punkte bekommen.\n" +
+                           $"Dafür hast du {elapsedTime:F1} Sekunden gebraucht und {gameScore} Punkte bekommen.\n" +
                            $"Kehre nun zurück zum Museum oder spiele erneut.";
         }
     }
@@ -101,7 +103,7 @@ public class PuzzleManager : MonoBehaviour
         {
             StopTimer();
 
-            GameSettings.Instance.MarkMinigameCompleted(0);
+            GameSettings.Instance.MarkMinigameCompleted(0, gameScore);
         }
     }
 

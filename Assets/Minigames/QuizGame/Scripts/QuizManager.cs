@@ -119,6 +119,6 @@ public class QuizManager : MonoBehaviour
             infoText.text = $"Du hast alle Fragen beantwortet. Dabei hast du {totalScore} von 100 Punkten erreicht.";
         }
 
-        GameSettings.Instance.MarkMinigameCompleted(2);
+        GameSettings.Instance.MarkMinigameCompleted(2, totalScore);
     }
 }

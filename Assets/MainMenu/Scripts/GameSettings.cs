@@ -20,7 +20,7 @@ public class GameSettings : MonoBehaviour
     public bool MuseumIntroSeen { get; set; } = false;
 
     private readonly bool[] minigameCompleted = new bool[4];
-    private readonly float[] minigamePoints = new float[4];
+    private readonly int[] minigamePoints = new int[4];
 
     private void Awake()
     {
@@ -39,11 +39,17 @@ public class GameSettings : MonoBehaviour
     public bool IsMinigameCompleted(int index)
         => index >= 0 && index < minigameCompleted.Length && minigameCompleted[index];
 
-    public void MarkMinigameCompleted(int index)
+    public int GetPointsForGame(int index)
+    {
+        return minigamePoints[index];
+    }
+
+    public void MarkMinigameCompleted(int index, int points)
     {
         if (index < 0 || index >= minigameCompleted.Length) return;
         if (minigameCompleted[index]) return;
         minigameCompleted[index] = true;
+        minigamePoints[index] = points;
     }
 
     public void SetMuseumReturn(Transform t)

@@ -37,6 +37,8 @@ public class ColorManager : MonoBehaviour
     private const float LUMA_G = 58.7f;
     private const float LUMA_B = 11.4f;
 
+    private int gameScore = 0;
+
     [SerializeField] private TextMeshProUGUI infoText;
     private float startTime;
     private bool timerRunning = false;
@@ -143,12 +145,12 @@ public class ColorManager : MonoBehaviour
             float elapsedTime = Time.time - startTime - totalPauseTime;
             timerRunning = false;
 
-            int score = CalculateScore(elapsedTime);
+            gameScore = CalculateScore(elapsedTime);
 
             endUiCanvas.SetActive(true);
 
             infoText.text = $"Du hast erfolgreich alle Farbkugeln gesammelt!\n" +
-                           $"Dafür hast du {elapsedTime:F1} Sekunden gebraucht und {score} Punkte bekommen.\n" +
+                           $"Dafür hast du {elapsedTime:F1} Sekunden gebraucht und {gameScore} Punkte bekommen.\n" +
                            $"Kehre nun zurück zum Museum oder spiele erneut.";
         }
     }
@@ -194,7 +196,7 @@ public class ColorManager : MonoBehaviour
         if (AllColorsUnlocked())
         {
             StopTimer();
-            GameSettings.Instance.MarkMinigameCompleted(1);
+            GameSettings.Instance.MarkMinigameCompleted(1, gameScore);
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

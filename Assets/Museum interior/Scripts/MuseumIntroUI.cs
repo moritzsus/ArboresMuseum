@@ -41,7 +41,7 @@ public class MuseumIntroUI : MonoBehaviour
         {
             var mode = GameSettings.Instance != null ? GameSettings.Instance.Mode : GameMode.Explore;
             infoText.text = (mode == GameMode.Play)
-                ? "Du hast den Spielen-Modus gewählt. Das bedeutet, dass zu Beginn nur ein Raum begehbar ist. Die Anderen kannst du freischalten, in dem du das jeweilige Minispiel im Raum abschließt. Versuche dir die Werke und die zugehörigen Informationen gut einzuprägen; das kann in den Minispielen von Vorteil sein. Viel Spaß beim spielerischen Erkunden des Museums zu Arbores Consanguinitatis."
+                ? "Du hast den Spielen-Modus gewählt. Das bedeutet, dass zu Beginn nur ein Raum begehbar ist. Die Anderen kannst du freischalten, indem du das jeweilige Minispiel im Raum abschließt. Versuche dir die Werke und die zugehörigen Informationen gut einzuprägen; das kann in den Minispielen von Vorteil sein. Du kannst bereits abgeschlossene Spiele erneut spielen, allerdings zählen die Punkte nur vom ersten erfolgreichen Durchgang. Viel Spaß beim spielerischen Erkunden des Museums zu Arbores Consanguinitatis."
                 : "Du hast den Erkunden-Modus gewählt. Bewege dich frei und ohne Stress durch alle Räume des Museums und lerne Neues zu Arbores Consanguinitatis. Viel Spaß!";
         }
 

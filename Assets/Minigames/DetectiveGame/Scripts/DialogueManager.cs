@@ -182,13 +182,11 @@ public class DialogueManager : MonoBehaviour
         EndDialogue();
         DetectiveSceneController.Instance.SetInteractionEnabled(false);
 
-        GameSettings.Instance.MarkMinigameCompleted(3);
-
         endTitle.text = isCorrect && foundPainting ? "Glückwunsch" : "Spielende";
 
         string infoText = $"Du hast {cluesFound} Hinweise gefunden.\n";
         infoText += foundPainting ? "Du hast das gestohlene Bild gefunden.\n" : "Du hast das gestohlene Bild nicht gefunden.\n";
-        infoText += isCorrect ? "Die identifizierte Person war der Täter." : "Die identifizierte Person war nicht der Täter.\n";
+        infoText += isCorrect ? "Die identifizierte Person war der Täter.\n" : "Die identifizierte Person war nicht der Täter.\n";
 
         int points = 100 - (isCorrect ? 0 : 25) - (foundPainting ? 0 : 25) - ((8 - cluesFound) * 8);
 
@@ -196,6 +194,7 @@ public class DialogueManager : MonoBehaviour
 
         endText.text = infoText;
 
+        GameSettings.Instance.MarkMinigameCompleted(3, points);
         endUiCanvas.SetActive(true);
     }
 }
