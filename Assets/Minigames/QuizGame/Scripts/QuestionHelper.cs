@@ -7,10 +7,10 @@ public static class QuestionHelper
     static readonly Sprite _multiple2 = Resources.Load<Sprite>("QuizGame/Multiple2_512");
     static readonly Sprite _multiple3 = Resources.Load<Sprite>("QuizGame/Multiple3_512");
 
-    static readonly Sprite _matching1a = Resources.Load<Sprite>("QuizGame/Match1A512");
-    static readonly Sprite _matching1b = Resources.Load<Sprite>("QuizGame/Match1B512");
-    static readonly Sprite _matching1c = Resources.Load<Sprite>("QuizGame/Match1C512");
-    static readonly Sprite _matching1d = Resources.Load<Sprite>("QuizGame/Match1D512");
+    //static readonly Sprite _matching1a = Resources.Load<Sprite>("QuizGame/Match1A512");
+    //static readonly Sprite _matching1b = Resources.Load<Sprite>("QuizGame/Match1B512");
+    //static readonly Sprite _matching1c = Resources.Load<Sprite>("QuizGame/Match1C512");
+    //static readonly Sprite _matching1d = Resources.Load<Sprite>("QuizGame/Match1D512");
 
     static readonly Sprite _matching2a = Resources.Load<Sprite>("QuizGame/Match2A512");
     static readonly Sprite _matching2b = Resources.Load<Sprite>("QuizGame/Match2B512");
@@ -24,7 +24,7 @@ public static class QuestionHelper
 
     static readonly Sprite _trueFalse1 = Resources.Load<Sprite>("QuizGame/TF1_512");
     static readonly Sprite _trueFalse2 = Resources.Load<Sprite>("QuizGame/TF2_512");
-    static readonly Sprite _trueFalse3 = Resources.Load<Sprite>("QuizGame/TF3_512");
+    //static readonly Sprite _trueFalse3 = Resources.Load<Sprite>("QuizGame/TF3_512");
 
     public static List<QuestionBase> InitQuestions()
     {
@@ -72,14 +72,14 @@ public static class QuestionHelper
                 },
                 correctAnswerIndex = 2
             },
-            new MatchingQuestion
-            {
-                questionType = QuestionType.Matching,
-                questionText = "Ordne die Bilder ihren Jahrhunderten zu.",
-                images = new Sprite[] { _matching1a, _matching1b, _matching1c, _matching1d },
-                answerTexts = new string[] { "9. Jahrhundert", "13. Jahrhundert", "16. Jahrhundert", "21. Jahrhundert" },
-                correctMatches = new int[] { 0, 1, 2, 3 }
-            },
+            //new MatchingQuestion
+            //{
+            //    questionType = QuestionType.Matching,
+            //    questionText = "Ordne die Bilder ihren Jahrhunderten zu.",
+            //    images = new Sprite[] { _matching1a, _matching1b, _matching1c, _matching1d },
+            //    answerTexts = new string[] { "9. Jahrhundert", "13. Jahrhundert", "16. Jahrhundert", "21. Jahrhundert" },
+            //    correctMatches = new int[] { 0, 1, 2, 3 }
+            //},
             new MatchingQuestion
             {
                 questionType = QuestionType.Matching,
@@ -111,14 +111,14 @@ public static class QuestionHelper
                 infoText = "Dieses Werk wurde im Kloster San Salvador de Tábar in Nordspanien angefertigt.",
                 correctAnswer = false
             },
-            new TrueFalseQuestion
-            {
-                questionType = QuestionType.TrueFalse,
-                image = _trueFalse3,
-                questionText = "Das allgemeine Thema dieses Werks bezieht sich auf die Mathematik.",
-                infoText = "Das allgemeine Thema dieses Werks bezieht sich auf Kirchenrecht",
-                correctAnswer = false
-            }
+            //new TrueFalseQuestion
+            //{
+            //    questionType = QuestionType.TrueFalse,
+            //    image = _trueFalse3,
+            //    questionText = "Das allgemeine Thema dieses Werks bezieht sich auf die Mathematik.",
+            //    infoText = "Das allgemeine Thema dieses Werks bezieht sich auf Kirchenrecht",
+            //    correctAnswer = false
+            //}
         };
     }
 }
