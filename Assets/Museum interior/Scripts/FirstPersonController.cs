@@ -30,7 +30,15 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    void Start() => ApplyCursorLock(lockCursor);
+    void Start()
+    {
+        if (GameSettings.Instance != null)
+        {
+            mouseSensitivity = GameSettings.Instance.MouseSensitivity;
+        }
+
+        ApplyCursorLock(lockCursor);
+    }
 
     void ApplyCursorLock(bool locked)
     {
@@ -75,5 +83,10 @@ public class FirstPersonController : MonoBehaviour
 
         Vector3 velocity = (move * speed) + (Vector3.up * verticalVelocity);
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void SetMouseSensitivity(float sensitivity)
+    {
+        mouseSensitivity = sensitivity;
     }
 }

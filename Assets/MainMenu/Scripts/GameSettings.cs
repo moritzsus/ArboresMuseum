@@ -19,8 +19,16 @@ public class GameSettings : MonoBehaviour
     public int CharacterIndex { get; private set; } = 0;
     public bool MuseumIntroSeen { get; set; } = false;
 
+    private float mouseSensitivity = 4.0f;
+
     private readonly bool[] minigameCompleted = new bool[4];
     private readonly int[] minigamePoints = new int[4];
+
+    public float MouseSensitivity
+    {
+        get { return mouseSensitivity; }
+        set { mouseSensitivity = value; }
+    }
 
     private void Awake()
     {
